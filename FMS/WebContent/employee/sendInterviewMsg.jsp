@@ -43,7 +43,7 @@
 				<td colspan="4" align="center">
 					
 					<c:forEach var="joinFree" items="${joinFreeList}" varStatus="status">
-						<input type="hidden" name="joinNum[${status.index}]" value="${joinFree.joinNum}">
+						<input type="hidden" name="joinNum" value="${joinFree.joinNum}">
 					</c:forEach>
 					
 					<input type="submit" value="확인">

@@ -22,17 +22,17 @@ public class AppointmentInterviewAction implements Action{
 		String url = "Eu?e=interview_schedule";
 		
 		// 폼을 통해 보내온 데이터를 각 객체에 넣는다.
-		String[] joinNum = request.getParameterValues("joinNum[]");
+		String[] joinNum = request.getParameterValues("joinNum");
 		String content = request.getParameter("content");
 		String interviewDate = request.getParameter("interviewDate");
 		String interviewTime = request.getParameter("interviewTime");
 		String location = request.getParameter("location");
-		String date = interviewDate + interviewTime;
+		String date = interviewDate + " " + interviewTime;
 		
-		System.out.println(joinNum);
-		System.out.println(content);
-		System.out.println(date);
-		System.out.println(location);
+		System.out.println("참여번호 : " + joinNum);
+		System.out.println("내용 : " + content);
+		System.out.println("일시 : " + date);
+		System.out.println("장소 : " + location);
 		
 		CommonDAO cDao = CommonDAO.getInstance();
 		EmployeeDAO eDao = EmployeeDAO.getInstance();
