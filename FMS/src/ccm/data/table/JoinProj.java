@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class JoinProj
+public class JoinProj extends Project
 {
 	private String joinNum;			// 참여 번호
 	private Date joinProjDate;		// 투입일
@@ -70,11 +70,20 @@ public class JoinProj
 	public void setFreeId(String freeId) {
 		this.freeId = freeId;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "JoinProj [joinNum=" + joinNum + ", joinProjDate=" + joinProjDate + ", exitProjDate=" + exitProjDate
 				+ ", projRole=" + projRole + ", freeState=" + freeState + ", applicationDate=" + applicationDate
-				+ ", joinAcceptDate=" + joinAcceptDate + ", projNum=" + projNum + ", freeId=" + freeId + "]";
+				+ ", joinAcceptDate=" + joinAcceptDate + ", projNum=" + projNum + ", freeId=" + freeId
+				+ ", projCompany=" + projCompany + ", isExtern=" + isExtern + ", projField=" + projField + ", projName="
+				+ projName + ", projState=" + projState + ", projRegisterDate=" + projRegisterDate + ", projRegisterer="
+				+ projRegisterer + ", projReviseDate=" + projReviseDate + ", projReviser=" + projReviser
+				+ ", projStartDate=" + projStartDate + ", projEndDate=" + projEndDate + ", projExpectedTime="
+				+ projExpectedTime + ", projTarget=" + projTarget + ", projPartner=" + projPartner + ", projPlan="
+				+ projPlan + ", projRecruitStartDate=" + projRecruitStartDate + ", projRecruitEndDate="
+				+ projRecruitEndDate + ", projDevelopSort=" + projDevelopSort + ", dbNum=" + dbNum + "]";
 	}
 	
 	public void setParams(ResultSet rs) throws SQLException
@@ -88,6 +97,40 @@ public class JoinProj
 		this.joinAcceptDate = rs.getDate("joinAcceptDate");
 		this.projNum = rs.getString("projNum");
 		this.freeId = rs.getString("freeId");
+	}
+	
+	public void setParamsIncludeProject(ResultSet rs) throws SQLException
+	{
+		this.joinNum = rs.getString("joinNum");
+		this.joinProjDate = rs.getDate("joinProjDate");
+		this.exitProjDate = rs.getDate("exitProjDate");
+		this.projRole = rs.getString("projRole");
+		this.freeState = rs.getString("freeState");
+		this.applicationDate = rs.getDate("applicationDate");
+		this.joinAcceptDate = rs.getDate("joinAcceptDate");
+		this.projNum = rs.getString("projNum");
+		this.freeId = rs.getString("freeId");
+		
+		// 상속받은 프로젝트 파일의 변수들 관련
+		this.projCompany = rs.getString("projCompany");
+		this.isExtern = rs.getBoolean("isExtern");
+		this.projName = rs.getString("projName");
+		this.projField = rs.getString("projField");
+		this.projState = rs.getString("projState");
+		this.projRegisterDate = rs.getDate("projRegisterDate");
+		this.projRegisterer = rs.getString("projRegisterer");
+		this.projReviseDate = rs.getDate("projReviseDate");
+		this.projReviser = rs.getString("projReviser");
+		this.projStartDate = rs.getDate("projStartDate");
+		this.projEndDate = rs.getDate("projEndDate");
+		this.projExpectedTime = rs.getInt("projExpectedTime");
+		this.projTarget = rs.getString("projTarget");
+		this.projPartner = rs.getString("projPartner");
+		this.projPlan = rs.getString("projPlan");
+		this.projRecruitStartDate = rs.getDate("projRecruitStartDate");
+		this.projRecruitEndDate = rs.getDate("projRecruitEndDate");
+		this.projDevelopSort = rs.getString("projDevelopSort");
+		this.dbNum = rs.getInt("DBNum");
 	}
 	
 }

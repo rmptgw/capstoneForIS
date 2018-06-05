@@ -46,8 +46,8 @@
 							</c:when>
 							<c:otherwise>
 								<td><a href="">프로젝트 관리</a></td>
-								<td><a href="">프리랜서 관리</a></td>
-								<td><a href="Eu?c=emp_main">계정 관리</a></td>
+								<td><a href="Eu?e=interview_schedule">프리랜서 관리</a></td>
+								<td><a href="Eu?e=emp_main">계정 관리</a></td>
 								<td><a href="Eu?c=show_message">메세지 확인</a></td>
 								<td>안녕하세요 ${loginemp.empName}님</td>
 							</c:otherwise>

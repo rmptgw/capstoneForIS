@@ -32,13 +32,13 @@ public class SelectReceiverAction implements Action{
 		System.out.println(freeTempVo);
 		System.out.println(empTempVo);
 		
-		if(freeTempVo != null) {
+		if(freeTempVo == null) {
 
 			List<Freelancer> freelancer = fDao.selectAllFree();
 			
 			request.setAttribute("freeList", freelancer);
 			
-		} else if (empTempVo != null) {
+		} else if (empTempVo == null) {
 			
 			List<Employee> employee = eDao.selectAllEmp();
 			

@@ -15,6 +15,7 @@ import ccm.dao.FreelancerDAO;
 import ccm.data.table.Employee;
 import ccm.data.table.Freelancer;
 import ccm.data.table.Message;
+import ccm.data.table.Project;
 
 public class ShowMessageAction implements Action{
 
@@ -27,11 +28,15 @@ public class ShowMessageAction implements Action{
 		// 보내진 no를 msgNo 변수에 적용한다.
 		String msgNo = request.getParameter("no");
 		String checked = request.getParameter("check");
+		String proj = request.getParameter("projNo");
 		
 		System.out.println(checked);
 		
 		// 메세지 객체 생성
 		Message message = null;
+		
+		// 프로젝트 객체 생성
+		Project project = null;
 		
 		CommonDAO cDao = CommonDAO.getInstance();
 		FreelancerDAO fDao = FreelancerDAO.getInstance();
@@ -46,14 +51,18 @@ public class ShowMessageAction implements Action{
 		// 메시지 번호를 통해 해당 메시지를 가져온다.
 		message =  cDao.selectOneMsgByNo(msgNo);
 		System.out.println("가져온 메시지 : " + message);
+		
+		// 프로젝트 번호를 통해 프로젝트를 찾아온다.
+		project = cDao.selectOneProjByNo(proj);
+		System.out.println("가져온 프로젝트 : " + project);
+		
 		// 현재 사용자의 회원번호를 세션으로부터 가져오는 과정
 		Freelancer freeTempVo = (Freelancer) request.getSession().getAttribute("loginfree");
 		Employee empTempVo = (Employee) request.getSession().getAttribute("loginemp");
 				
 		
-		System.out.println("세션값 free" + freeTempVo);
-		System.out.println("*******************");
-		System.out.println("세션값 emp" + empTempVo);
+		System.out.println("세션을 통해 가져온 프리랜서 정보 : " + freeTempVo);
+		System.out.println("세션을 통해 가져온 사원 정보 : " + empTempVo);
 		
 		// 메시지 리스트를 생성한다
 		List<Message> messageList = null;
@@ -62,26 +71,34 @@ public class ShowMessageAction implements Action{
 			// 세션을 통해 가져온 사용자의 아이디가 프리랜서일 때 해당 프리랜서가 받은 메시지 목록을 받아온다.
 			messageList = cDao.selectAllMsgFree(freeTempVo.getFreeId());
 			
+			System.out.println("프리랜서 아이디를 통해 가져온 프리랜서가 받은 이전 메시지 : " + messageList);
 		} else if( empTempVo != null ) {
-			// 세션을 통해 가져온 사용자의 아이디가 사원일 때 해당 사원이 받은 메시지 목록을 받아온다.
+			// 세션을 통해 가져온 사용자의 아이디가 사원(관리자)일 때 해당 사원(관리자)이 받은 메시지 목록을 받아온다.
 			messageList = cDao.selectAllMsgEmp(empTempVo.getEmpId());
+			
+			System.out.println("사원 아이디를 통해 가져온 프리랜서가 받은 이전 메시지 : " + messageList);
 		}
 
-		System.out.println(message);
+		System.out.println("메시지 : " + message);
+
 		// 메시지의 작성자 아이디를 통해 작성자의 정보를 가져온다.
 		if(empTempVo != null && msgNo != null) {
+			// 메시지의 프리랜서 발신자를 통해 가져온 프리랜서 정보
 			Freelancer free = fDao.getfVo(message.getFreeWriter());
-			System.out.println(free);
+			
+			System.out.println("작성자 프리랜서 : " + free);
 			request.setAttribute("free", free);
 		} else if (freeTempVo != null && msgNo != null) {
+			// 메시지의 사원(관리자) 발신자를 통해 가져온 프리랜서 정보
 			Employee emp = eDao.geteVo(message.getEmpWriter());
-			System.out.println(emp);
+			System.out.println("작성자 사원 : " + emp);
 			request.setAttribute("emp", emp);
 		}
 		
-		// 각 객체를 ""안의 이름으로 전달한다.
+		// 각 객체를 ""안의 이름으로 값들을 showMessage 페이지로 전달한다.
 		request.setAttribute("messageList", messageList);
 		request.setAttribute("message", message);
+		request.setAttribute("project", project);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

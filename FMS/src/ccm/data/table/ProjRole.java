@@ -11,10 +11,10 @@ public class ProjRole
 	
 	*/
 	
-	private int rNum;
-	private String rName;
-	private int reqNum;
-	private int pNum;
+	private int rNum;		// 역할 번호
+	private String rName;	// 역할 이름
+	private int reqNum;		// 필요 인원
+	private int pNum;		// 프로젝트 번호
 	
 	public ProjRole() { super(); }
 	public ProjRole(int rNum, String rName, int reqNum, int pNum)

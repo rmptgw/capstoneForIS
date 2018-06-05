@@ -1,7 +1,6 @@
 package ccm.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,6 +103,7 @@ public class CommonDAO
 	}
 	
 	public List<Message> selectAllMsgFree(String id) {
+		// 이전에 보내진 메시지를 프리랜서의 아이디로 전부 불러오는 메소드
 		String sql = "select * from Message where freeReceiver='"+ id + "' order by msgNum desc";
 
 		List<Message> list = new ArrayList<Message>();
@@ -135,6 +135,7 @@ public class CommonDAO
 	}
 	
 	public List<Message> selectAllMsgEmp(String id) {
+		// 이전에 보내진 메시지를 사원(관리자)의 아이디로 전부 불러오는 메소드
 		String sql = "select * from Message where empReceiver='"+ id + "' order by msgNum desc";
 
 		List<Message> list = new ArrayList<Message>();
@@ -166,6 +167,7 @@ public class CommonDAO
 	}
 
 	public Message selectOneMsgByNo(String msgNum) {
+		// 메시지 번호를 통해 메시지의 정보를 가져오는 메소드
 		String sql = "select * from message where msgNum=?";
 
 		Message msgVo = null;
@@ -202,9 +204,92 @@ public class CommonDAO
 	}
 	
 	public void insertMsg(Message msgVo) {
+		// 새로운 메시지를 보내는 메소드
 		String sql = "insert into message(msgNum, prevMsgNum, freeWriter, empWriter, freeReceiver, "
 				+ "empReceiver, msgTitle, msgContent, msgSendDate, msgChecked, projNum) "
 				+ "values(null, ?, ?, ?, ?, ?, ?, ?, now(), false, ?)";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		System.out.println("insertMsg 메소드");
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			// 이전메시지가 없으면 널을 넣어준다.
+			if(msgVo.getPrevMsgNum() == null || msgVo.getPrevMsgNum()=="") {
+				pstmt.setString(1, null);
+				System.out.println("이전 메시지 번호 : null");
+			} else {
+				pstmt.setInt(1, Integer.parseInt(msgVo.getPrevMsgNum()));
+				System.out.println("이전 메시지 번호 : " + msgVo.getPrevMsgNum());
+			}
+			
+			// 프리랜서 작성자가 널이면 널을 넣어준다.
+			if(msgVo.getFreeWriter() == null || msgVo.getFreeWriter() == "") {
+				pstmt.setString(2, null);
+				System.out.println("발신하는 프리랜서 : null");
+			} else {
+				pstmt.setString(2, msgVo.getFreeWriter());
+				System.out.println("발신하는 프리랜서 : " + msgVo.getFreeWriter());
+			}
+			
+			// 사원 작성자가 널이면 널을 넣어준다.
+			if(msgVo.getEmpWriter() == null || msgVo.getEmpWriter() == "") {
+				pstmt.setString(3, null);
+				System.out.println("발신하는 사원(관리자) : null");
+			} else {
+				pstmt.setString(3, msgVo.getEmpWriter());
+				System.out.println("발신하는 사원(관리자) : " + msgVo.getEmpWriter());
+			}
+			
+			// 프리랜서 수신자가 널이면 널을 넣어준다.
+			if(msgVo.getFreeReceiver() == null || msgVo.getFreeReceiver() == "") {
+				pstmt.setString(4, null);
+				System.out.println("수신받는 프리랜서 : null");
+			} else {
+				pstmt.setString(4, msgVo.getFreeReceiver());
+				System.out.println("수신받는 프리랜서 : " + msgVo.getFreeReceiver());
+			}
+			
+			// 사원 수신자가 널이면 널을 넣어준다.
+			if(msgVo.getEmpReceiver() == null || msgVo.getEmpReceiver() == "") {
+				pstmt.setString(5, null);
+				System.out.println("수신받는 사원(관리자) : null");
+			} else {
+				pstmt.setString(5, msgVo.getEmpReceiver());
+				System.out.println("수신받는 사원(관리자) : " + msgVo.getEmpReceiver());
+			}
+
+			pstmt.setString(6, msgVo.getMsgTitle());
+			pstmt.setString(7, msgVo.getMsgContent());
+			
+			// 연관된 프로젝트가 없으면(연관 프로젝트가 널이면) 널을 넣어준다.
+			if(msgVo.getProjNum() == null || msgVo.getProjNum() == "") {
+				pstmt.setString(8, null);
+				System.out.println("연관된 프로젝트 번호 : null");
+			} else {
+				pstmt.setInt(8, Integer.parseInt(msgVo.getProjNum()));
+				System.out.println("연관된 프로젝트 번호 : " + msgVo.getProjNum());
+			}
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
+		}
+
+	}
+	
+	
+	public void sendInterviewMsg(Message msgVo, String joinNum) {
+		// 인터뷰할 사람들에게 면접일정과 장소에 대한 통지를 하는 메소드
+		String sql = "insert into message(msgNum, prevMsgNum, freeWriter, empWriter, freeReceiver, "
+				+ "empReceiver, msgTitle, msgContent, msgSendDate, msgChecked, projNum) "
+				+ "values(null, ?, ?, ?, ?, ?, ?, ?, now(), false, (select projNum from joinProj where joinNum = ?))";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -251,10 +336,10 @@ public class CommonDAO
 			pstmt.setString(7, msgVo.getMsgContent());
 			
 			// 연관된 프로젝트가 없으면(연관 프로젝트가 널이면) 널을 넣어준다.
-			if(msgVo.getProjNum() == null || msgVo.getProjNum() == "") {
+			if(joinNum == null || joinNum == "") {
 				pstmt.setString(8, null);
 			} else {
-				pstmt.setInt(8, Integer.parseInt(msgVo.getProjNum()));
+				pstmt.setString(8,joinNum);
 			}
 			
 			pstmt.executeUpdate();
@@ -268,6 +353,7 @@ public class CommonDAO
 	}
 	
 	public Message updateMsgCheckedDate(String msgNo) {
+		// 확인이 되지 않은 메시지를 확인하는 첫 회에 메시지 확인을 해주는 메소드
 		String sql = "update message set msgCheckedDate = now(), msgChecked = 1"
 				+ " where msgNum = ? and msgChecked = 0";
 		Connection conn = null;
@@ -290,6 +376,7 @@ public class CommonDAO
 
 	}
 	
+	// 
 	public Project selectLastJoinProject() {
 		String sql = "select * from project order by projRegisterDate desc limit = 1";
 
@@ -357,7 +444,7 @@ public class CommonDAO
 	}
 	
 	public List<JoinProj> selectJoinProjByFreeId(String id) {
-		String sql = "select * from joinproj where freeId='"+ id + "' order by joinNum desc";
+		String sql = "select * from joinProject where freeId='"+ id + "' order by joinNum desc";
 
 		List<JoinProj> list = new ArrayList<JoinProj>();
 		Connection conn = null;
@@ -372,8 +459,8 @@ public class CommonDAO
 
 			while (rs.next()) {
 				JoinProj jVo = new JoinProj();
-
-				jVo.setParams(rs);
+				
+				jVo.setParamsIncludeProject(rs);
 				
 				list.add(jVo);
 

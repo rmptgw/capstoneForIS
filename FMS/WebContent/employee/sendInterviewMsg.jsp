@@ -6,12 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="script/interview.js?ver=1"></script>
+<link rel="stylesheet" type="text/css" href="common/css/style.css">
 <title>면접일 지정</title>
 </head>
 <body>
 <c:set var="now" value="<%= new java.util.Date() %>" />
 <div>
-	<form action="Eu?c=appointment_interview" method="post" name="frm">
+	<form action="Eu?e=appointment_interview" method="post" name="frm">
 		<table>
 			<tr>
 				<td>
@@ -23,7 +25,13 @@
 				<th>날짜</th>
 				<td><input type="date" name="interviewDate"></td>
 				<th>시간</th>
-				<td><input type="datetime" name="interviewTime"></td>
+				<td><input type="time" name="interviewTime"></td>
+			</tr>
+			<tr>
+				<th>장소</th>
+				<td colspan="3">
+					<input type="text" name="location">
+				</td>
 			</tr>
 			<tr>
 				<th>알림말</th>
@@ -32,7 +40,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4">
+				<td colspan="4" align="center">
+					
+					<c:forEach var="joinFree" items="${joinFreeList}" varStatus="status">
+						<input type="hidden" name="joinNum[${status.index}]" value="${joinFree.joinNum}">
+					</c:forEach>
+					
 					<input type="submit" value="확인">
 					<input type="button" value="취소">
 				</td>

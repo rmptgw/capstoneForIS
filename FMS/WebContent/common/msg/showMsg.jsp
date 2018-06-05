@@ -11,7 +11,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script type="text/javascript" src="script/message.js?ver=1"></script>
+<script type="text/javascript" src="script/message.js?ver=2"></script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,7 +62,10 @@
 						</c:choose>
 					</td>
 					<th>발신일</th>
-					<td>${message.msgSendDate}</td>
+					<td>
+						<input type="hidden" name="msgSendDate" value="${message.msgSendDate}">
+						${message.msgSendDate}
+					</td>
 					<th>수신일</th>
 					<td>${message.msgCheckedDate}</td>
 				</tr>
@@ -70,11 +73,12 @@
 					<th>관련 프로젝트</th>
 					<td colspan="6">
 						<input type="hidden" name="projNum" value="${message.projNum}">
-						<input type="text" id="projNum" readonly="readonly" value = "${message.projNum}">
+						<input type="text" id="projNum" readonly="readonly" value="${project.projName}">
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6"><textarea rows="15" cols="90">${message.msgContent}</textarea>
+					<td colspan="6">
+						<textarea rows="15" cols="90" name="msgContent">${message.msgContent}</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -107,7 +111,7 @@
 					<td>${status.count}</td>
 					<!-- 제목 -->
 					<td>
-						<a href="Eu?c=show_message&no=${message.msgNum}&check=${message.msgChecked}">
+						<a href="Eu?c=show_message&no=${message.msgNum}&check=${message.msgChecked}&projNo=${message.projNum}">
 							${message.msgTitle}
 						</a>
 					</td>
@@ -150,7 +154,7 @@
 					<td>제목</td>
 					<td colspan="5">
 						<input type="text" id="title" name="msgTitle" value="${reMsg.msgTitle}">
-						<input type="hidden" name="prevMsgNum">
+						<input type="hidden" name="prevMsgNum" value="${reMsg.prevMsgNum}">
 					
 					</td>
 				</tr>
@@ -160,11 +164,11 @@
 						<c:choose>
 							<c:when test="${loginemp == null}">
 								<input type="hidden" name="freeWriter" value="${loginfree.freeId}">
-								<input type="text" value="${freeTemp.freeName}">
+								<input type="text" value="${loginfree.freeName}" readonly="readonly">
 							</c:when>
 							<c:when test="${loginfree == null}">
 								<input type="hidden" id="empWriter" name="empWriter" value="${loginemp.empId}">
-								<input type="text" value="${empTemp.empName}">
+								<input type="text" value="${loginemp.empName}" readonly="readonly">
 							</c:when>
 						</c:choose></td>
 					<td>발신일</td>
@@ -194,18 +198,19 @@
 				<tr>
 					<td>관련프로젝트</td>
 					<td colspan="5">
-						<input type="text" name="projNum" value="${reMsg.projNum}"> 
+						<input type="text" id="projName" value="${reProject.projName}" readonly="readonly"> 
+						<input type="hidden" name="projNum" id="projNum" value="${reProject.projNum}"> 
 						<input type="button" value="검색" onclick="selectProject()">
 					</td>
 				</tr>
 				<tr>
 					<td colspan="6">
-						<textarea rows="10" cols="90" name="msgContent" id="content"></textarea>
+						<textarea rows="10" cols="90" name="msgContent" id="content">${reMsg.msgContent}</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="6" align="right">
-						<input type="submit" value="보내기" onclick="sendCheck()">
+						<input type="submit" value="보내기" onclick="return sendCheck()">
 						<input type="button" value="취소">
 					</td>
 				</tr>

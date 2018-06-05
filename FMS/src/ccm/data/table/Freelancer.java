@@ -21,27 +21,27 @@ import java.sql.SQLException;
 
 public class Freelancer
 {
-	private String freeId;
-	private String freePw;
-	private String freeName;
-	private String freePic;
-	private Date freeBirth;
-	private Boolean freesex;
-	private String freePhone;
-	private String freeEmail;
-	private Date freeJoinDate;
-	private Date freeDropDate;
-	private Integer freeClass;
-	private Integer freeKosa;
-	private Boolean freeMarried;
-	private String freeFrontAddr;
-	private String freeRearAddr;
-	private String freeBank;
-	private String freeAccName;
-	private String freeAccount;
-	private String freeReviser;
-	private Date freeReviseDate;
-	private Integer freeScore;
+	private String freeId;			// 프리랜서 아이디
+	private String freePw;			// 프리랜서 비밀번호
+	private String freeName;		// 프리랜서 이름
+	private String freePic;			// 프리랜서 사진
+	private Date freeBirth;			// 프리랜서 생년월일
+	private Boolean freesex;		// 프리랜서 성별
+	private String freePhone;		// 프리랜서 전화번호
+	private String freeEmail;		// 프리랜서 이메일
+	private Date freeJoinDate;		// 프리랜서 가입일
+	private Date freeDropDate;		// 프리랜서 탈퇴일
+	private Integer freeClass;		// 프리랜서 회원등급
+	private Integer freeKosa;		// 프리랜서 코사등급
+	private Boolean freeMarried;	// 프리랜서 결혼 유무
+	private String freeFrontAddr;	// 프리랜서 주소
+	private String freeRearAddr;	// 프리랜서 상세주소
+	private String freeBank;		// 프리랜서 은행
+	private String freeAccName;		// 프리랜서 계좌명
+	private String freeAccount;		// 프리랜서 계좌번호
+	private String freeReviser;		// 프리랜서 수정자
+	private Date freeReviseDate;	// 프리랜서 수정일
+	private Integer freeScore;		// 프리랜서 점수
 	
 	public Freelancer()
 	{

@@ -17,8 +17,8 @@ public class Message
 	private String msgContent;		// 메시지 내용
 	private Date msgSendDate;		// 메시지 보낸날
 	private Integer msgChecked;		// 메시지 확인
-	private String projNum;		// 관련 프로젝트 번호
-	private Date msgCheckedDate;	//
+	private String projNum;			// 관련 프로젝트 번호
+	private Date msgCheckedDate;	// 메시지 확인을 한 날
 	
 	public Message() {
 		super();

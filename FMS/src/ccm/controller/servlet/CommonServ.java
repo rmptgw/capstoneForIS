@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ccm.controller.actfac.CommonAF;
+import ccm.controller.actfac.EmployeeAF;
+import ccm.controller.actfac.FreeLancerAF;
 import ccm.controller.action.Action;
 
 /**
@@ -34,13 +36,31 @@ public class CommonServ extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
-		String command = request.getParameter("c");
+		String command = null;	
+		String common = request.getParameter("c");
+		String free = request.getParameter("f");
+		String emp = request.getParameter("e");
+
+		Action action = null;
 		
-		System.out.println(command);
-		
-		CommonAF af = (CommonAF) CommonAF.getInstance();
-		
-		Action action = af.getAction(command);
+		if(common != null) {
+			command = common; 
+			System.out.println(command);
+			CommonAF af = (CommonAF) CommonAF.getInstance();
+			action = af.getAction(command);
+			
+		} else if (emp != null) {
+			command = emp;
+			System.out.println(command);
+			EmployeeAF af = (EmployeeAF) EmployeeAF.getInstance();
+			action = af.getAction(command);
+
+		} else if (free != null) {
+			command = free;
+			System.out.println(command);
+			FreeLancerAF af = (FreeLancerAF) FreeLancerAF.getInstance();
+			action = af.getAction(command);
+		}
 		
 		if(action != null)
 		{

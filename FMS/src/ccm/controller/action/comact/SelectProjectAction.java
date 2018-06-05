@@ -13,7 +13,6 @@ import ccm.dao.CommonDAO;
 import ccm.data.table.Employee;
 import ccm.data.table.Freelancer;
 import ccm.data.table.JoinProj;
-import ccm.data.table.Project;
 
 public class SelectProjectAction implements Action{
 
@@ -22,7 +21,6 @@ public class SelectProjectAction implements Action{
 		// TODO Auto-generated method stub
 		String url ="common/msg/selectProject.jsp";
 		String freeId = request.getParameter("freeId");
-		Project project = null;
 		List <JoinProj> joinproj = null;
 		
 		CommonDAO cDao = CommonDAO.getInstance();
@@ -45,9 +43,9 @@ public class SelectProjectAction implements Action{
 			System.out.println("수신받는 프리랜서 아이디로 joinproj를 가져옴 : " + joinproj);
 		}
 		
-		request.setAttribute("joinProjList", joinproj);
+		System.out.println("joinProj__ : " + joinproj);
 		
-		System.out.println(joinproj);
+		request.setAttribute("joinProjList", joinproj);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

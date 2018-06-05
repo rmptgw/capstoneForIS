@@ -6,26 +6,26 @@ import java.sql.Date;
 
 public class Project
 {
-	private String projNum;				// 프로젝트 번호
-	private String projCompany;			// 프로젝트 시행 회사
-	private boolean isExtern;			// 외부 프로젝트 유무
-	private String projField;			// 프로젝트 유형(SM or SI)
-	private String projName;			// 프로젝트 이름
-	private String projState;			// 프로젝트 진행상태
-	private Date projRegisterDate;		// 프로젝트 등록일
-	private String projRegisterer;		// 프로젝트 등록자
-	private Date projReviseDate;		// 프로젝트 수정일
-	private String projReviser;			// 프로젝트 수정자
-	private Date projStartDate;			// 프로젝트 시작일
-	private Date projEndDate;			// 프로젝트 종료일
-	private int projExpectedTime;		// 프로젝트 예상기간
-	private String projTarget;			// 프로젝트 고객사
-	private String projPartner;			// 프로젝트 협력사
-	private String projPlan;			// 프로젝트 세부내용
-	private Date projRecruitStartDate;	// 프로젝트 인원 모집 시작일
-	private Date projRecruitEndDate;	// 프로젝트 인원 모집 종료일
-	private String projDevelopSort;		// 개발 분야
-	private Integer dbNum;				// 사용 DB번호
+	protected String projNum;				// 프로젝트 번호
+	protected String projCompany;			// 프로젝트 시행 회사
+	protected boolean isExtern;			// 외부 프로젝트 유무
+	protected String projField;			// 프로젝트 유형(SM or SI)
+	protected String projName;			// 프로젝트 이름
+	protected String projState;			// 프로젝트 진행상태
+	protected Date projRegisterDate;		// 프로젝트 등록일
+	protected String projRegisterer;		// 프로젝트 등록자
+	protected Date projReviseDate;		// 프로젝트 수정일
+	protected String projReviser;			// 프로젝트 수정자
+	protected Date projStartDate;			// 프로젝트 시작일
+	protected Date projEndDate;			// 프로젝트 종료일
+	protected int projExpectedTime;		// 프로젝트 예상기간
+	protected String projTarget;			// 프로젝트 고객사
+	protected String projPartner;			// 프로젝트 협력사
+	protected String projPlan;			// 프로젝트 세부내용
+	protected Date projRecruitStartDate;	// 프로젝트 인원 모집 시작일
+	protected Date projRecruitEndDate;	// 프로젝트 인원 모집 종료일
+	protected String projDevelopSort;		// 개발 분야
+	protected Integer dbNum;				// 사용 DB번호
 	
 	public Project()
 	{
@@ -80,7 +80,7 @@ public class Project
 		this.projPlan = rs.getString("PROJPLAN");
 		this.projRecruitStartDate = rs.getDate("PROJRECRUITSTARTDATE");
 		this.projRecruitEndDate = rs.getDate("PROJRECRUITENDDATE");
-		this.projDevelopSort = rs.getString("PROJDEVELIPSORT");
+		this.projDevelopSort = rs.getString("PROJDEVELOPSORT");
 		this.dbNum = rs.getInt("DBNUM");
 	}
 	
@@ -124,4 +124,15 @@ public class Project
 	public void setProjDevelopSort(String projDevelopSort) { this.projDevelopSort = projDevelopSort; }
 	public Integer getDbNum() { return dbNum; }
 	public void setDbNum(Integer dbNum) { this.dbNum = dbNum; }
+	@Override
+	public String toString() {
+		return "Project [projNum=" + projNum + ", projCompany=" + projCompany + ", isExtern=" + isExtern
+				+ ", projField=" + projField + ", projName=" + projName + ", projState=" + projState
+				+ ", projRegisterDate=" + projRegisterDate + ", projRegisterer=" + projRegisterer + ", projReviseDate="
+				+ projReviseDate + ", projReviser=" + projReviser + ", projStartDate=" + projStartDate
+				+ ", projEndDate=" + projEndDate + ", projExpectedTime=" + projExpectedTime + ", projTarget="
+				+ projTarget + ", projPartner=" + projPartner + ", projPlan=" + projPlan + ", projRecruitStartDate="
+				+ projRecruitStartDate + ", projRecruitEndDate=" + projRecruitEndDate + ", projDevelopSort="
+				+ projDevelopSort + ", dbNum=" + dbNum + "]";
+	}
 }
