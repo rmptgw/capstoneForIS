@@ -47,8 +47,8 @@ function chooseReceiverEmp(receiverId, receiverName){
 
 function chooseProject(projectId, projectName){
 	// 프로젝트 검색에서 프로젝트 명을 누르면 부모 폼으로 들어가는 기능
-	alert("프로젝트 아이디 : " + projectId + "\n" + 
-			"프로젝트 이름 : " + projectName);
+	/*alert("프로젝트 아이디 : " + projectId + "\n" + 
+			"프로젝트 이름 : " + projectName);*/
 	
 	opener.document.getElementById("projName").value = projectName;
 	opener.document.getElementById("projNum").value = projectId;
