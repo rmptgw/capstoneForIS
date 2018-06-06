@@ -1,11 +1,18 @@
 package ccm.controller.actfac;
 
-import ccm.controller.action.*;
-import ccm.controller.action.comact.*;
-import ccm.controller.action.empact.AppointmentInterviewAction;
-import ccm.controller.action.empact.AppointmentInterviewFormAction;
-import ccm.controller.action.empact.InterviewScheduleAction;
-import ccm.controller.action.empact.ResultInterviewAction;
+import ccm.controller.action.Action;
+import ccm.controller.action.comact.GoToLoginAction;
+import ccm.controller.action.comact.GoToMainAction;
+import ccm.controller.action.comact.JoinAction;
+import ccm.controller.action.comact.JoinFormAction;
+import ccm.controller.action.comact.LoginProcessAction;
+import ccm.controller.action.comact.LogoutProcessAction;
+import ccm.controller.action.comact.MessageAction;
+import ccm.controller.action.comact.ReceiveMessageAction;
+import ccm.controller.action.comact.SelectProjectAction;
+import ccm.controller.action.comact.SelectReceiverAction;
+import ccm.controller.action.comact.ShowMessageAction;
+import ccm.controller.action.comact.ShowProjectInfoAction;
 
 /***************************
  * 
@@ -67,7 +74,9 @@ public class CommonAF
 		} else if (command.equals("msg_select_receiver")) {
 			// 메세지와 연관된 수신인을 찾는 액션
 			action = new SelectReceiverAction();
-		} 
+		} else if (command.equals("show_project_info")) {
+			action = new ShowProjectInfoAction();
+		}
 
 		return action;
 	}

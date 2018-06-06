@@ -1,14 +1,18 @@
 package ccm.dao;
 
-import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
-import ccm.data.table.*;
+import ccm.data.table.Employee;
+import ccm.data.table.Interview;
+import ccm.data.table.JoinFreelancerInterview_view;
+import ccm.data.table.JoinFreelancerSkillInventory;
+import ccm.data.table.JoinProj;
 import ccm.util.DBManager;
 
 public class EmployeeDAO {
@@ -25,7 +29,6 @@ public class EmployeeDAO {
 	public Employee geteVo(String id) {
 		// TODO Auto-generated method stub
 
-		EmployeeDAO eDao;
 		Connection conn = null;
 		String sql = "select * from employee where empid=?";
 		PreparedStatement pstmt = null;

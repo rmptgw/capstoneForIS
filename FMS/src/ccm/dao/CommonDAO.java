@@ -13,6 +13,7 @@ import ccm.data.table.Freelancer;
 import ccm.data.table.JoinProj;
 import ccm.data.table.Message;
 import ccm.data.table.Project;
+import ccm.data.table.ProjectInfo;
 import ccm.util.DBManager;;
 
 public class CommonDAO
@@ -376,8 +377,8 @@ public class CommonDAO
 
 	}
 	
-	// 
 	public Project selectLastJoinProject() {
+		// 가장 최근에 등록된 프로젝트를 가져오는 메소드
 		String sql = "select * from project order by projRegisterDate desc limit = 1";
 
 		Project pVo = null;
@@ -411,11 +412,46 @@ public class CommonDAO
 		return pVo;
 	}
 	
-	public List<Project> selectAllJoinableProject() {
-		// 시작하지 않은 프로젝트들을 가져오는 메소드 
-		String sql = "select * from project where projStartDate >= now() order by msgNum desc";
+	public ProjectInfo selectLastRegistProject() {
+		// 가장 최근에 등록된 프로젝트의 정보와 그에 관련된 정보(필요인원, 신청인원, 사용언어들, 사용프레임워크들)를 가져오는 메소드
+		String sql = "select * from project_info3 order by projRegisterDate desc limit 1";
 
-		List<Project> list = new ArrayList<Project>();
+		ProjectInfo pVo = null;
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();
+
+			rs = stmt.executeQuery(sql);
+
+			if (rs.next()) {
+				
+				pVo = new ProjectInfo();
+
+				pVo.setParams(rs);
+				
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			DBManager.close(conn, stmt, rs);
+
+		}
+
+		return pVo;
+	}
+	
+	public List<ProjectInfo> selectAllJoinableProject() {
+		// 시작하지 않은 프로젝트들을 가져오는 메소드 
+		String sql = "select * from project_info3 where projStartDate >= now() order by projNum desc";
+
+		List<ProjectInfo> list = new ArrayList<ProjectInfo>();
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -427,7 +463,7 @@ public class CommonDAO
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-				Project pVo = new Project();
+				ProjectInfo pVo = new ProjectInfo();
 
 				pVo.setParams(rs);
 				
@@ -473,10 +509,10 @@ public class CommonDAO
 
 		return list;
 	}
-	public Project selectOneProjByNo(String No) {
-		String sql = "select * from project where projNum=?";
+	public ProjectInfo selectOneProjByNo(String No) {
+		String sql = "select * from project_info3 where projNum=?";
 
-		Project pVo = null;
+		ProjectInfo pVo = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -491,7 +527,7 @@ public class CommonDAO
 
 			if (rs.next()) {
 				
-				pVo = new Project();
+				pVo = new ProjectInfo();
 
 				pVo.setParams(rs);
 
