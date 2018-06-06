@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="script/interview.js?ver=4"></script>
+<script type="text/javascript" src="script/interview.js?ver=4" charset="UTF-8"></script>
 <link rel="stylesheet" type="text/css" href="common/css/style.css">
 <title>면접일 지정</title>
 </head>
@@ -43,11 +43,11 @@
 				<td colspan="4" align="center">
 					
 					<c:forEach var="joinFree" items="${joinFreeList}" varStatus="status">
-						<input type="hidden" id="joinNum" name="joinNum" value="${joinFree.joinNum}">
+						<input type="hidden" name="joinNum" value="${joinFree.joinNum}">
 					</c:forEach>
 					
 					<input type="submit" value="확인" onclick="sendAppointmentMsg(); return false;">
-					<input type="button" value="취소" onclick="self.close()">
+					<input type="button" value="취소" onclick="self.close();">
 				</td>
 			</tr>
 		</table>

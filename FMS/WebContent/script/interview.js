@@ -64,18 +64,25 @@ function sendAppointmentMsg(){
 		return false;
 	}
 	
-	var inputs = document.getElementByName("joinNum");
+	var inputs = document.getElementsByName('joinNum');
+	var location = document.frm.location.value;
+	var time = document.frm.time.value;
+	var date = document.frm.date.value;
+	var content = document.frm.content.value;
+	
 	var no = "";
 	
-	for(i = 0; inputs.length; i++){
+	for(i = 0; i < inputs.length; i++){
 		no += inputs[i].value + "/";
 	}
 	
-	alert(no);
+	alert("참여번호 : " +  no + "\n location : " + location + "\n time : " + time 
+			+ "\n date : " + date + "\n content : " + content);
 	
-	var url = "Eu?e=appointment_interview&no =" + no;
+	var url = "Eu?e=appointment_interview&no=" + no + "&location=" + location + 
+	"&interviewDate=" + date + "&interviewTime=" + time + "&content=" + content;
 	
-	location.href="url";
+	window.opener.location.href = url;
 	
 	self.close();
 }

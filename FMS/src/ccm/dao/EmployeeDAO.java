@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ccm.data.table.Employee;
@@ -154,7 +155,7 @@ public class EmployeeDAO {
 
 	// joinFreelancerSkillInventory뷰에 참여번호(joinNum)로 접근하여 참여상태(freeState)를 업데이트 하는 메소드
 	public JoinProj updateFreeStateByJoinNum(String joinNo, String freeState) {
-		String sql = "update joinFreelancerSkillInventory set freeState = ? where joinNum = ?";
+		String sql = "update joinProj set freeState = ? where joinNum = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -227,9 +228,10 @@ public class EmployeeDAO {
 
 	}
 	
-	public Interview updateInterviewStateByJoinNum(String joinNum, String location, String Date) {
-		String sql = "update joinFreelancerInterview "
-				+ "set interviewState = 1, interviewLocation = ?, interviewDate = ?  where joinNum = ? ";
+	public JoinFreelancerInterview_view updateInterviewStateByJoinNum(String interviewNum, String location, String date) {
+		// joinFreelancerInterview 내부의 데이터를 참여번호로 찾아 면접상태와 면접장소를 업데이트 하는 메소드
+		String sql = "update interview "
+				+ "set interviewState = 1, interviewLocation = ?, interviewDate = ?  where interviewNum = ? ";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -238,8 +240,8 @@ public class EmployeeDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, location);
-			pstmt.setString(2, Date);
-			pstmt.setString(3, joinNum);
+			pstmt.setString(2, date);
+			pstmt.setString(3, interviewNum);
 			
 			pstmt.executeUpdate();
 			
@@ -251,6 +253,8 @@ public class EmployeeDAO {
 		return null;
 
 	}
+	
+	
 	
 	// joinFreelancerInterview 뷰에 접근하여 상태(freeState)가 접수완료인 필드를 가져오는 메소드
 	public List<JoinFreelancerInterview_view> selectJoinFreeInterview() {
@@ -354,6 +358,7 @@ public class EmployeeDAO {
 		// TODO Auto-generated method stub
 		String sql = "select * from joinProj where joinNum = ?";
 
+		System.out.println("getJoinProjByNo 시작");
 		JoinProj jVo = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -369,6 +374,8 @@ public class EmployeeDAO {
 			if (rs.next()) {
 				jVo = new JoinProj();
 
+				System.out.println("getJoinProjByNo 진행중");
+
 				jVo.setParams(rs);
 				
 			}
@@ -383,6 +390,8 @@ public class EmployeeDAO {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("getJoinProjByNo 종료");
+
 		return jVo;
 	}
 	
@@ -421,5 +430,73 @@ public class EmployeeDAO {
 			}
 		}
 		return jVo;
+	}
+	
+	public JoinFreelancerSkillInventory getJoinFreeSkillInventoryByNo(String no) {
+		// joinNum을 통해 joinFreelancerSkillInventory의 데이터를 가져오는 메소드
+		// TODO Auto-generated method stub
+		String sql = "select * from joinFreelancerSkillInventory where joinNum = ?";
+
+		JoinFreelancerSkillInventory jVo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				jVo = new JoinFreelancerSkillInventory();
+
+				jVo.setParams(rs);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return jVo;
+	}
+	public void insertInterview(String freeId, String location, String date) {
+		// 사원 데이터 삽입 작성 필요
+		String sql = "insert into interview('interviewNum','interviewDate','interviewLocatioin', 'interviewState', freeId)"
+				+ " VALUES(null, ?, ?, ?, ?)";
+		System.out.println("면접 삽입 시작");
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			// ?占쏙옙 占쏙옙 占쏙옙占쏙옙
+
+			pstmt.setString(1, date);
+			pstmt.setString(2, location);
+			pstmt.setString(3, "1");
+			pstmt.setString(4, freeId);
+			System.out.println("면접 삽입 진행중");	
+			System.out.println(pstmt.executeUpdate());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("면접 삽입 종료");
 	}
 }

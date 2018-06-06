@@ -1,5 +1,8 @@
 package ccm.data.table;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class JoinFreelancerSkillInventory{
 	
 	private String joinNum;
@@ -81,4 +84,17 @@ public class JoinFreelancerSkillInventory{
 				+ ", freeScore=" + freeScore + "]";
 	}
 	
+	public void setParams(ResultSet rs) throws SQLException
+	{
+		this.joinNum = rs.getString("joinNum");
+		this.freeId = rs.getString("freeId");
+		this.freeName = rs.getString("freeName");
+		this.freeState = rs.getString("freeState");
+		this.freeScore = rs.getString("freeScore");
+		this.freeKosa = rs.getString("freeKosa");
+		this.languages = rs.getString("languages");
+		this.frameworks = rs.getString("frameworks");
+		this.careerYear = rs.getString("careerYear");
+		this.joinProjTime = rs.getString("joinProjTime");
+	}
 }
