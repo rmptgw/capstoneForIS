@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import ccm.data.table.Employee;
+import ccm.data.table.Freelancer;
 import ccm.data.table.Interview;
 import ccm.data.table.JoinFreelancerInterview_view;
 import ccm.data.table.JoinFreelancerSkillInventory;
@@ -92,7 +93,7 @@ public class EmployeeDAO {
 			pstmt.setString(17, eVo.getEmpAccName());
 			pstmt.setString(18, eVo.getEmpAccount());
 			
-			System.out.println(pstmt.executeUpdate());
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -177,6 +178,37 @@ public class EmployeeDAO {
 
 	}
 	
+	public Interview selectOneInterviewByFreeId(String freeId) {
+		// 프리랜서 번호로 면접에서 프리랜서의 면접정보를 가져온다.
+		String sql = "select * from interview where freeId = ?";
+
+		Interview iVo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, freeId);
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				iVo = new Interview();
+
+				iVo.setParams(rs);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return iVo;
+	}
+	
 	// joinFreelancerInterview 뷰에 joinNum으로 접근하여 면접상태를 1(면접중)로 업데이트 하는 메소드
 	public JoinFreelancerInterview_view updateInterviewStateByJoinNum(String joinNum) {
 		String sql = "update joinFreelancerInterview "
@@ -202,10 +234,9 @@ public class EmployeeDAO {
 	}
 	
 	// 인터뷰 한 결과에 대한 사유와 면접상태를 2(면접완료)로 업데이트 하는  메소드
-	public Interview updateInterviewReasonByJoinNum(String joinNo, String interviewReason) {
+	public Interview updateInterviewReasonByfreeId(String freeId, String interviewReason) {
 		String sql = "update interview set nothireReason = ?, interviewState='2'"
-				+ "where (select interviewNum from joinFreelancerInterview" + 
-				"	where joinNum = '?')";
+				+ "where freeId=?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -215,7 +246,7 @@ public class EmployeeDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, interviewReason);
-			pstmt.setString(2, joinNo);
+			pstmt.setString(2, freeId);
 			
 			pstmt.executeUpdate();
 			
@@ -228,10 +259,10 @@ public class EmployeeDAO {
 
 	}
 	
-	public JoinFreelancerInterview_view updateInterviewStateByJoinNum(String interviewNum, String location, String date) {
+	public Interview updateInterviewStateByfreeId(String freeId, String location, String date) {
 		// joinFreelancerInterview 내부의 데이터를 참여번호로 찾아 면접상태와 면접장소를 업데이트 하는 메소드
 		String sql = "update interview "
-				+ "set interviewState = 1, interviewLocation = ?, interviewDate = ?  where interviewNum = ? ";
+				+ "set interviewState = 1, interviewLocation = ?, interviewDate = ?  where freeId = ? ";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -241,7 +272,7 @@ public class EmployeeDAO {
 			
 			pstmt.setString(1, location);
 			pstmt.setString(2, date);
-			pstmt.setString(3, interviewNum);
+			pstmt.setString(3, freeId);
 			
 			pstmt.executeUpdate();
 			
@@ -311,6 +342,7 @@ public class EmployeeDAO {
 
 		return list;
 	}
+
 
 	public List<JoinFreelancerSkillInventory> selectAllJoinFreeSkillInventory() {
 		// joinFreelancerSkillInventory뷰에 joinNum으로 접근하여 null이 아닌 데이터를 가져오는 메소드

@@ -20,14 +20,15 @@ public class ResultInterviewAction implements Action{
 		String url = "employee/interviewSchedule.jsp";
 		
 		// 각 이름으로 받아오는 파라메터 값을 String형 배열에 적용한다.
-		String interviewReason[] = request.getParameterValues("interviewReason");
-		String joinNum[] = request.getParameterValues("joinNum");
-		String choice[] = request.getParameterValues("choice[]");
+		String[] interviewReason = request.getParameterValues("interviewReason");
+		String[] joinNum = request.getParameterValues("joinNum");
+		String[] freeId = request.getParameterValues("free[]");
+		String[] choice = request.getParameterValues("choice[]");
 		
 		EmployeeDAO eDao = EmployeeDAO.getInstance();
 		
 		for(int i=1; i < joinNum.length; i++) {
-			eDao.updateInterviewReasonByJoinNum(joinNum[i], interviewReason[i]);
+			eDao.updateInterviewReasonByfreeId(freeId[i], interviewReason[i]);
 			
 			switch(choice[i]) {
 			case "sucess":

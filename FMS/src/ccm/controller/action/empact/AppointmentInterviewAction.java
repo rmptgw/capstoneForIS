@@ -13,6 +13,7 @@ import ccm.dao.EmployeeDAO;
 import ccm.dao.FreelancerDAO;
 import ccm.data.table.Employee;
 import ccm.data.table.Freelancer;
+import ccm.data.table.Interview;
 import ccm.data.table.JoinFreelancerInterview_view;
 import ccm.data.table.JoinFreelancerSkillInventory;
 import ccm.data.table.JoinProj;
@@ -53,26 +54,19 @@ public class AppointmentInterviewAction implements Action{
 		FreelancerDAO fDao = FreelancerDAO.getInstance();
 		
 		JoinProj joinProj = null;
+		Freelancer free = null;
 		
 		// 세션을 통해 관리자(사원)의 정보를 가져온다.
 		Employee empTempVo = (Employee) request.getSession().getAttribute("loginemp");
 		
 		for(int i=0; i<joinNum.length; i++) {
 			System.out.println("보내온 joinNum : " + joinNum[i]);
-			
-			JoinFreelancerInterview_view freeInterview = eDao.getJoinFreeInterviewByNo(joinNum[i]);
-			JoinFreelancerSkillInventory freeskillInventory = eDao.getJoinFreeSkillInventoryByNo(joinNum[i]);
-			Freelancer free = null;
-			
+			joinProj= cDao.getJoinProjByNo(joinNum[i]);
+			free = fDao.getfVo(joinProj.getFreeId());
+			Interview interview = eDao.selectOneInterviewByFreeId(free.getFreeId());
 			Message msg = new Message();
 
-			if(freeInterview == null) {
-				free = fDao.getfVo(freeskillInventory.getFreeId());
-			} 
-			if (freeskillInventory == null) {
-				free = fDao.getfVo(freeInterview.getFreeId());
-			}
-			System.out.println("참여 번호로 찾은 프리랜서 : " + free);
+			System.out.println("참여프로젝트로 찾은 프리랜서 : " + free);
 			
 			// 작성자, 제목, 내용을 메시지 객체에 지정한다.
 			msg.setEmpWriter(empTempVo.getEmpId());
@@ -89,8 +83,8 @@ public class AppointmentInterviewAction implements Action{
 			System.out.println("내용 : " + msg.getMsgContent());
 			
 			// 받아온 참여번호를 통해 인터뷰 상태 날짜, 시간, 장소 등을 업데이트 한다.
-			if(freeInterview != null) {
-				eDao.updateInterviewStateByJoinNum(freeInterview.getInterviewNum(), location, date);
+			if(interview != null) {
+				eDao.updateInterviewStateByfreeId(free.getFreeId(), location, date);
 			} else {
 				eDao.insertInterview(free.getFreeId(), location, date);
 			}

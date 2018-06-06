@@ -1,6 +1,8 @@
 package ccm.data.table;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Interview
 {
@@ -63,5 +65,13 @@ public class Interview
 		return "Interview [intvNum=" + intvNum + ", intvDate=" + intvDate + ", intvLocation=" + intvLocation
 				+ ", intvReason=" + intvReason + ", intvState=" + intvState + ", freeNum=" + freeNum + "]";
 	}
-	
+	public void setParams(ResultSet rs) throws SQLException
+	{
+		this.intvNum = rs.getInt("interviewNum");
+		this.intvDate = rs.getDate("interviewDate");
+		this.intvLocation = rs.getString("interviewLcation");
+		this.intvReason = rs.getString("interviewReason");
+		this.intvState = rs.getInt("interviewState");
+		this.freeNum = rs.getString("freeNum");
+	}
 }

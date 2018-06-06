@@ -76,11 +76,11 @@ function sendAppointmentMsg(){
 		no += inputs[i].value + "/";
 	}
 	
-	alert("참여번호 : " +  no + "\n location : " + location + "\n time : " + time 
+	alert("프리랜서 아이디 : " +  no + "\n location : " + location + "\n time : " + time 
 			+ "\n date : " + date + "\n content : " + content);
 	
-	var url = "Eu?e=appointment_interview&no=" + no + "&location=" + location + 
-	"&interviewDate=" + date + "&interviewTime=" + time + "&content=" + content;
+	var url = "Eu?e=appointment_interview&no=" + no + "&location=" + encodeURI(location, "UTF-8") + 
+	"&interviewDate=" + date + "&interviewTime=" + time + "&content=" + encodeURI(content,"UTF-8");
 	
 	window.opener.location.href = url;
 	
@@ -100,4 +100,11 @@ function sendResultMsg(){
 		resultInterviewFrm.choice.focus();
 		return false;
 	}
+	
+	var join = document.gerElementsByName('joinNum');
+	var freeState = document.getElementsByName('freeState');
+	var freeId = document.gerElementsByName('freeId');
+	var interviewReason = document.getElementsByName('interviewReason')
+	
+	var url = "Eu?e=result_interview&"
 }

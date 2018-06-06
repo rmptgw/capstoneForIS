@@ -108,6 +108,7 @@
 					<td>
 						<input type="text" name="freeName" value="${interview.freeName}" 
 						readonly="readonly">
+						<input type="hidden" name="freeId" value="${interview.freeId}">
 						<input type="hidden" name = "joinNum" value="${interview.joinNum}">
 					</td>
 					<td>
@@ -120,12 +121,12 @@
 					</td>
 					<td>
 						<lable>
-							<input type="radio" 	name="choice[${status.index}]" 	id="sucess" value="sucess" 
-							onselect="freeState()">채용
-							<input type="radio" 	name="choice[${status.index}]" 	id="hold" 	value="hold"
-							onselect="freeState()">보류
-							<input type="radio" 	name="choice[${status.index}]" 	id="fail" 	value="fail"
-							onselect="freeState()">불채용
+							<input type="radio" 	name="choice[1]" 	id="sucess" value="sucess" 
+							onselect="freeState('sucess')">채용
+							<input type="radio" 	name="choice[2]" 	id="hold" 	value="hold"
+							onselect="freeState('hold')">보류
+							<input type="radio" 	name="choice[3]" 	id="fail" 	value="fail"
+							onselect="freeState('fail')">불채용
 						</lable>
 						<input type="hidden" 	name="freeState" id="freeState">
 					</td>

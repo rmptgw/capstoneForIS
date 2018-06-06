@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import ccm.controller.action.Action;
 import ccm.dao.CommonDAO;
 import ccm.dao.EmployeeDAO;
+import ccm.dao.FreelancerDAO;
+import ccm.data.table.Employee;
+import ccm.data.table.Freelancer;
 import ccm.data.table.JoinProj;
 
 public class AppointmentInterviewFormAction implements Action{
