@@ -12,14 +12,13 @@ function freeState(freeState){
 		break;
 	}
 }
+
 function sendInterviewMsg(){
-	if(document.schduleFrm.chk.checked == false){
-		alert("선택된 프리랜서가 없습니다.");
-		return false;
-	}
+
 	var url = "Eu?e=appointment_interview_form&no="+document.schduleFrm.chk.value;
 	window.open(url, "_blank_1",
 	"toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=600, height=300");
+	
 }
 function sendResultMsg(){
 	if(document.resultInterviewFrm.freeState == null || 

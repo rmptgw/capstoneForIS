@@ -33,7 +33,7 @@ public class InterviewScheduleAction implements Action{
 
 		// 참여신청한 프리랜서 인터뷰 리스트를 가져오는 메소드
 		joinFreeInterview = eDao.selectJoinFreeInterview();
-		System.out.println(" 참여신청한 프리랜서 인터뷰 : " + joinFreeInterview);
+		System.out.println("참여신청한 프리랜서 인터뷰 : " + joinFreeInterview);
 		
 		
 		// 저장된 객체를 화면에서 볼 수 있게 데이터를 보내주는 메소드

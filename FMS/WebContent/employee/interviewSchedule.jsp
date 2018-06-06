@@ -14,7 +14,7 @@
 	<jsp:include page="/frame/header.jsp"/>
 </div>
 <div align="center">
-	<form name="schduleFrm" method="post">
+	<form name="scheduleFrm" method="post">
 		<table border="1">
 			<tr>
 				<th colspan="7">신청 접수한 프리랜서</th>
@@ -55,7 +55,7 @@
 					<td>${joinFree.freeKosa}</td>
 					<td>${joinFree.freeScore}</td>
 					<td>
-						<input type="checkbox" value="${joinFree.joinNum}" name="chk">
+						<input type="checkbox" value="${joinFree.joinNum}" id="chk" name="chk">
 					</td>
 				</tr>
 			</c:forEach>
