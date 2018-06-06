@@ -45,7 +45,7 @@ public class ShowMessageAction implements Action{
 		// 메시지 번호를 통해 수신일을 업데이트 한다.
 		if(checked != "1") {		
 	 	// 만약 msgChecked가 1이 아니면 메세지 번호를 통해 수신일을 업데이트하고 msgChecked를 1로 바꾼다.
-			message = cDao.updateMsgCheckedDate(msgNo);
+			cDao.updateMsgCheckedDate(msgNo);
 		}
 		
 		// 메시지 번호를 통해 해당 메시지를 가져온다.
