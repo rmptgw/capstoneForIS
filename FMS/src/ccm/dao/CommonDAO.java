@@ -285,7 +285,6 @@ public class CommonDAO
 
 	}
 	
-	
 	public void sendInterviewMsg(Message msgVo, String joinNum) {
 		// 인터뷰할 사람들에게 면접일정과 장소에 대한 통지를 하는 메소드
 		String sql = "insert into message(msgNum, prevMsgNum, freeWriter, empWriter, freeReceiver, "
@@ -353,7 +352,7 @@ public class CommonDAO
 
 	}
 	
-	public Message updateMsgCheckedDate(String msgNo) {
+	public void updateMsgCheckedDate(String msgNo) {
 		// 확인이 되지 않은 메시지를 확인하는 첫 회에 메시지 확인을 해주는 메소드
 		String sql = "update message set msgCheckedDate = now(), msgChecked = 1"
 				+ " where msgNum = ? and msgChecked = 0";
@@ -373,13 +372,11 @@ public class CommonDAO
 		} finally {
 			DBManager.close(conn, pstmt);
 		}
-		return null;
-
 	}
 	
 	public Project selectLastJoinProject() {
 		// 가장 최근에 등록된 프로젝트를 가져오는 메소드
-		String sql = "select * from project order by projRegisterDate desc limit = 1";
+		String sql = "select * from project order by projRegisterDate desc limit 1";
 
 		Project pVo = null;
 		Connection conn = null;
@@ -406,6 +403,43 @@ public class CommonDAO
 		} finally {
 
 			DBManager.close(conn, stmt, rs);
+
+		}
+
+		return pVo;
+	}
+	
+	public Project selectProjectByNo(String projNo) {
+		// 가장 최근에 등록된 프로젝트를 가져오는 메소드
+		String sql = "select * from project from projNum = ?";
+
+		Project pVo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, projNo);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				
+				pVo = new Project();
+
+				pVo.setParams(rs);
+
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			DBManager.close(conn, pstmt, rs);
 
 		}
 
@@ -479,36 +513,6 @@ public class CommonDAO
 		return list;
 	}
 	
-	public List<JoinProj> selectJoinProjByFreeId(String id) {
-		String sql = "select * from joinProject where freeId='"+ id + "' order by joinNum desc";
-
-		List<JoinProj> list = new ArrayList<JoinProj>();
-		Connection conn = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = DBManager.getConnection();
-			stmt = conn.createStatement();
-
-			rs = stmt.executeQuery(sql);
-
-			while (rs.next()) {
-				JoinProj jVo = new JoinProj();
-				
-				jVo.setParamsIncludeProject(rs);
-				
-				list.add(jVo);
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, stmt, rs);
-		}
-
-		return list;
-	}
 	public ProjectInfo selectOneProjByNo(String No) {
 		String sql = "select * from project_info3 where projNum=?";
 
@@ -545,5 +549,76 @@ public class CommonDAO
 		return pVo;
 	}
 	
+	public List<JoinProj> selectJoinProjByFreeId(String id) {
+		String sql = "select * from joinProject where freeId='"+ id + "' order by joinNum desc";
+
+		List<JoinProj> list = new ArrayList<JoinProj>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();
+
+			rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				JoinProj jVo = new JoinProj();
+				
+				jVo.setParamsIncludeProject(rs);
+				
+				list.add(jVo);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt, rs);
+		}
+
+		return list;
+	}
 	
+	public JoinProj getJoinProjByNo(String no) {
+		// joinNum을 통해 joinProj의 데이터를 가져오는 메소드
+		// TODO Auto-generated method stub
+		String sql = "select * from joinProj where joinNum = ?";
+
+		System.out.println("getJoinProjByNo 시작");
+		JoinProj jVo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				jVo = new JoinProj();
+
+				System.out.println("getJoinProjByNo 진행중");
+
+				jVo.setParams(rs);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println("getJoinProjByNo 종료");
+
+		return jVo;
+	}
 }

@@ -353,48 +353,6 @@ public class EmployeeDAO {
 		return list;
 	}
 	
-	public JoinProj getJoinProjByNo(String no) {
-		// joinNum을 통해 joinProj의 데이터를 가져오는 메소드
-		// TODO Auto-generated method stub
-		String sql = "select * from joinProj where joinNum = ?";
-
-		System.out.println("getJoinProjByNo 시작");
-		JoinProj jVo = null;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, no);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				jVo = new JoinProj();
-
-				System.out.println("getJoinProjByNo 진행중");
-
-				jVo.setParams(rs);
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				pstmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		System.out.println("getJoinProjByNo 종료");
-
-		return jVo;
-	}
-	
 	public JoinFreelancerInterview_view getJoinFreeInterviewByNo(String no) {
 		// joinNum을 통해 joinProj의 데이터를 가져오는 메소드
 		// TODO Auto-generated method stub
