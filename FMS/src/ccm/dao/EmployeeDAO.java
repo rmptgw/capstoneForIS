@@ -177,7 +177,7 @@ public class EmployeeDAO {
 	}
 	
 	// joinFreelancerInterview 뷰에 joinNum으로 접근하여 면접상태를 1(면접중)로 업데이트 하는 메소드
-	public Interview updateInterviewStateByJoinNum(String joinNum) {
+	public JoinFreelancerInterview_view updateInterviewStateByJoinNum(String joinNum) {
 		String sql = "update joinFreelancerInterview "
 				+ "set interviewState = 1  where joinNum = ? ";
 		Connection conn = null;
@@ -308,10 +308,10 @@ public class EmployeeDAO {
 		return list;
 	}
 
-	// joinFreelancerSkillInventory뷰에 joinNum으로 접근하여 null이 아닌 데이터를 가져오는 메소드
 	public List<JoinFreelancerSkillInventory> selectAllJoinFreeSkillInventory() {
+		// joinFreelancerSkillInventory뷰에 joinNum으로 접근하여 null이 아닌 데이터를 가져오는 메소드
 		String sql = "select * from joinFreelancerSkillInventory "
-				+ "where joinNum is not null order by joinNum";
+				+ "where joinNum is not null and freeState = '대기중' order by joinNum";
 
 		List<JoinFreelancerSkillInventory> list = new ArrayList<JoinFreelancerSkillInventory>();
 		Connection conn = null;
@@ -349,10 +349,10 @@ public class EmployeeDAO {
 		return list;
 	}
 	
-	// joinNum을 통해 joinProj의 데이터를 가져오는 메소드
 	public JoinProj getJoinProjByNo(String no) {
+		// joinNum을 통해 joinProj의 데이터를 가져오는 메소드
 		// TODO Auto-generated method stub
-		String sql = "select projNum from joinProj where joinNum = ?";
+		String sql = "select * from joinProj where joinNum = ?";
 
 		JoinProj jVo = null;
 		Connection conn = null;
@@ -368,6 +368,43 @@ public class EmployeeDAO {
 
 			if (rs.next()) {
 				jVo = new JoinProj();
+
+				jVo.setParams(rs);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return jVo;
+	}
+	
+	public JoinFreelancerInterview_view getJoinFreeInterviewByNo(String no) {
+		// joinNum을 통해 joinProj의 데이터를 가져오는 메소드
+		// TODO Auto-generated method stub
+		String sql = "select * from joinFreelancerInterview where joinNum = ?";
+
+		JoinFreelancerInterview_view jVo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				jVo = new JoinFreelancerInterview_view();
 
 				jVo.setParams(rs);
 				
