@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ccm.controller.action.Action;
-import ccm.dao.CommonDAO;
 import ccm.dao.EmployeeDAO;
-import ccm.dao.FreelancerDAO;
 import ccm.data.table.JoinFreelancerInterview_view;
 import ccm.data.table.JoinFreelancerSkillInventory;
 

@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="script/interview.js?ver=2"></script>
+<script type="text/javascript" src="script/interview.js?ver=1"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>면접일정/결과 등록</title>
 </head>
@@ -55,13 +55,13 @@
 					<td>${joinFree.freeKosa}</td>
 					<td>${joinFree.freeScore}</td>
 					<td>
-						<input type="checkbox" value="${joinFree.joinNum}" id="chk" name="chk">
+						<input type="checkbox" value="${joinFree.joinNum}" name="checks">
 					</td>
 				</tr>
 			</c:forEach>
 			<tr>
 				<td colspan="9" align="right">
-					<input type="submit" value="면접일 지정" onclick="return sendInterviewMsg()">
+					<input type="submit" value="면접일 지정" onclick="sendInterviewMsg(); return false; ">
 				</td>
 			</tr>
 		</table>
