@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ccm.controller.action.Action;
+import ccm.dao.CommonDAO;
 import ccm.dao.EmployeeDAO;
 import ccm.data.table.JoinProj;
 
@@ -30,10 +31,11 @@ public class AppointmentInterviewFormAction implements Action{
 		
 		List<JoinProj> join = new ArrayList<JoinProj>();
 		EmployeeDAO eDao = EmployeeDAO.getInstance();
+		CommonDAO cDao = CommonDAO.getInstance();
 
 		// 받아온 joinNum을 통해 해당 참여신청 정보를 가져온다. 
 		for(int i=0; i<joinNum.length; i++) {
-			join.add(eDao.getJoinProjByNo(joinNum[i]));
+			join.add(cDao.getJoinProjByNo(joinNum[i]));
 			System.out.println("join 프로젝트 : " + join);
 			eDao.updateInterviewStateByJoinNum(joinNum[i]);
 		}

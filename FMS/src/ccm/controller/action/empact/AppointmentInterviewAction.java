@@ -96,7 +96,7 @@ public class AppointmentInterviewAction implements Action{
 			}
 			
 			// 참여 번호를 통해 참여 정보를 가져온다을 지정한다.
-			joinProj = eDao.getJoinProjByNo(joinNum[i]);
+			joinProj = cDao.getJoinProjByNo(joinNum[i]);
 			
 			System.out.println("보내지는 면접일정 메시지 : " + msg);
 			System.out.println("가져온 참여 정보 : " + joinProj);
