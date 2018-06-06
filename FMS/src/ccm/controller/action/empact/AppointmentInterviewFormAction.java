@@ -22,7 +22,7 @@ public class AppointmentInterviewFormAction implements Action{
 		String url = "/employee/sendInterviewMsg.jsp";
 		String chk = request.getParameter("chk");
 		System.out.println("받아온 chk 변수 : " + chk);
-		
+		//
 		String[] joinNum = chk.split("/");
 		
 		for(int i=0;i<joinNum.length;i++) {
