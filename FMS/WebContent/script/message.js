@@ -74,3 +74,41 @@ function sendCheck(){
 		return false;
 	}
 }
+
+function sendInputMsg(){
+	if(document.getElementsByName('joinDate') == null || document.getElementsByName('joinDate') == "" ){
+		alert("투입일을 확인해 주세요");
+		return false;
+	}
+	if(document.getElementsByName('dropDate') == null || document.getElementsByName('dropDate') == "" ){
+		alert("투입종료일을 확인해 주세요");
+		return false;
+	}
+	
+	var empId = document.getElementsByName('empWriter').value;
+	var projNum = document.getElementsByName('projNum').value;
+	var ProjName = document.getElementByName('projName').value;
+	var freeId = document.getElementsByName('free');
+	var joinNum = document.getElementByName('joinNum');
+	var joinDate = document.getElementsByName('joinDate');
+	var dropDate = document.getElementsByName('dropDate');
+	var join = "";
+	var drop = "";
+	var free = "";
+	var joinN = "";
+	
+	for( i=0 ; i<free.length; i++){
+		free += freeId + "/";
+		join += joinDate + "/";
+		drop += dropDate + "/";
+		joinN += joinNum + "/";
+	}
+	
+	var url = "Eu?e=send_input_msg&emp=" + empId + "&projNum=" + projNum + "&joinNum" + joinN 
+			"&projName=" + projName + "&join=" + join + "&drop=" + drop + "&free=" + free;
+	
+	window.opener.location.href=url;
+	
+	self.close();
+
+}

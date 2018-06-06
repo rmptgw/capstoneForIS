@@ -7,12 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>투입 메시지</title>
-<link rel="stylesheet" type="text/css" href="common/css/style.css">
+<script type="text/javascript" src="script/message.js" charset="UTF-8"></script>
 </head>
 <body>
 <c:set var="now" value="<%= new java.util.Date() %>" />
 	<div>
-		<form action="Eu?e=send_input_message" method="post" name="frm">
+		<form method="post" name="frm">
 			<table align="center" border="1">
 				<tr>
 					<th colspan="4">
@@ -22,41 +22,46 @@
 				</tr>
 				<tr>
 					<th>발신인</th>
-					<td><input type="text" name="empWriter" readonly="readonly"></td>
+					<td>
+						<input type="text" name="empName" readonly="readonly" value="${emp.empName}">
+						<input type="hidden" name="empWriter" value="${emp.empId}">	
+					</td>
 					<th>발신일</th>
-					<td><fmt:formatDate value="${now}"/></td>
+					<td><fmt:formatDate value="${now}" pattern="yyyy. MM. dd"/></td>
 				</tr>
 				<tr>
 					<th>프로젝트명</th>
 					<td colspan="3">
-						<input type="text" name ="projNum" value="${message.projName}">
+						<input type="text" name ="projName" value="${project.projName}">
+						<input type="hidden" name="projNum" value="${project.projNum}">
 					</td>
 				</tr>
 				<tr>
 					<th>수신인</th>
-					<th colspan="2">투입일</th>
-					<th></th>
+					<th colspan="3">투입일</th>
 				</tr>
-				<c:forEach var="sendMsg" items="sendInputFreeList">
+				<c:forEach var="joinproj" items="${joinProjList}" varStatus="status">
 					<tr>
 						<td>
-							<input type="text" value="${sendMsg.freeId}">
+							<input type="hidden" name="joinNum" value="${joinproj.joinNum}">
+							<input type="text" value="${free[status.index].freeName}">
+							<input type="hidden" name="free" value="${free[status.index].freeId}">
 						</td>
-						<td>
-							<input type="date" name = "joinDate">~
+						<td colspan="2">
+							<input type="date" name = "joinDate" value="${project.projStartDate}">
+							&nbsp;~&nbsp;
+							<input type="date" name = "dropDate" value="${project.projEndDate}">
 						</td>
-						<td>
-							<input type="date" name = "dropDate">
-						</td>
-						<td>
+						<!-- <td>
 							<input type="button" name="" value="요청전송" onclick="">
 							<input type="button" name="input" value="투입" onclick="">
+						</td> -->
 					</tr>
 				</c:forEach>
 				<tr>
 					<td colspan="4" align="center">
-						<input type="submit" value="확인">
-						<input type="button" value="취소">
+						<input type="submit" value="투입하기" onclick="sendInputMsg(); return false;">
+						<input type="button" value="취소" onclick="self.close();">
 					</td>
 				</tr>
 			</table>
