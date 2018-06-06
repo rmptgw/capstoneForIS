@@ -19,7 +19,11 @@ public class AppointmentInterviewFormAction implements Action{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String url = "/employee/sendInterviewMsg.jsp";
-		String[] joinNum = request.getParameterValues("no");
+		String chk = request.getParameter("chk");
+		System.out.println("받아온 chk 변수 : " + chk);
+		
+		String[] joinNum = chk.split("/");
+		
 		for(int i=0;i<joinNum.length;i++) {
 			System.out.println("받은 JoinNum : " + joinNum[i]);
 		}
@@ -27,7 +31,7 @@ public class AppointmentInterviewFormAction implements Action{
 		List<JoinProj> join = new ArrayList<JoinProj>();
 		EmployeeDAO eDao = EmployeeDAO.getInstance();
 
-		// 
+		// 받아온 joinNum을 통해 해당 참여신청 정보를 가져온다. 
 		for(int i=0; i<joinNum.length; i++) {
 			join.add(eDao.getJoinProjByNo(joinNum[i]));
 			System.out.println("join 프로젝트 : " + join);
