@@ -85,7 +85,7 @@
 				<th>모집마감일</th>
 				<th>참여인원</th>
 			</tr>
-			<c:forEach var="project" items="${projectList}">
+			<c:forEach var="project" items="${projectList}" end="4">
 				<tr>
 					<td>
 						<c:choose>
