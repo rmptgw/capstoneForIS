@@ -53,7 +53,7 @@ public class ShowMessageAction implements Action{
 		System.out.println("가져온 메시지 : " + message);
 		
 		// 프로젝트 번호를 통해 프로젝트를 찾아온다.
-		project = cDao.selectOneProjByNo(proj);
+		project = cDao.selectProjectByNo(proj);
 		System.out.println("가져온 프로젝트 : " + project);
 		
 		// 현재 사용자의 회원번호를 세션으로부터 가져오는 과정

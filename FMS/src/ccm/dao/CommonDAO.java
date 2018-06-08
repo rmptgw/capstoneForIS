@@ -11,6 +11,7 @@ import java.util.List;
 import ccm.data.table.Employee;
 import ccm.data.table.Freelancer;
 import ccm.data.table.JoinProj;
+import ccm.data.table.JoinProject;
 import ccm.data.table.Message;
 import ccm.data.table.Project;
 import ccm.data.table.ProjectInfo;
@@ -410,7 +411,7 @@ public class CommonDAO
 	}
 	
 	public Project selectProjectByNo(String projNo) {
-		// 가장 최근에 등록된 프로젝트를 가져오는 메소드
+		// 프로젝트 테이블에서 정보를 가져오는 메소드
 		String sql = "select * from project from projNum = ?";
 
 		Project pVo = null;
@@ -514,6 +515,7 @@ public class CommonDAO
 	}
 	
 	public ProjectInfo selectOneProjByNo(String No) {
+		// 프로젝트 번호로 project_info3 뷰에서 정보를 받아오는 메소드
 		String sql = "select * from project_info3 where projNum=?";
 
 		ProjectInfo pVo = null;
@@ -549,10 +551,10 @@ public class CommonDAO
 		return pVo;
 	}
 	
-	public List<JoinProj> selectJoinProjByFreeId(String id) {
+	public List<JoinProject> selectJoinProjectByFreeId(String id) {
 		String sql = "select * from joinProject where freeId='"+ id + "' order by joinNum desc";
 
-		List<JoinProj> list = new ArrayList<JoinProj>();
+		List<JoinProject> list = new ArrayList<JoinProject>();
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -564,9 +566,10 @@ public class CommonDAO
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-				JoinProj jVo = new JoinProj();
 				
-				jVo.setParamsIncludeProject(rs);
+				JoinProject jVo = new JoinProject();
+				
+				jVo.setParams(rs);
 				
 				list.add(jVo);
 

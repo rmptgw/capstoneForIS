@@ -53,7 +53,7 @@ public class ReceiveMessageAction implements Action{
 		System.out.println("가져온 사원 수신인 정보 : " + emp);
 		
 		// 프로젝트 정보를 가져옴
-		Project project = cDao.selectOneProjByNo(msgProject);
+		Project project = cDao.selectProjectByNo(msgProject);
 		System.out.println("가져온 프로젝트 : " + project);
 		
 		// 답장할 메시지를 저장할 객체를 생성한다.

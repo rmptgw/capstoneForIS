@@ -1,3 +1,4 @@
+
 package ccm.controller.action.comact;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ import ccm.controller.action.Action;
 import ccm.dao.CommonDAO;
 import ccm.data.table.Employee;
 import ccm.data.table.Freelancer;
-import ccm.data.table.JoinProj;
+import ccm.data.table.JoinProject;
 
 public class SelectProjectAction implements Action{
 
@@ -21,7 +22,7 @@ public class SelectProjectAction implements Action{
 		// TODO Auto-generated method stub
 		String url ="common/msg/selectProject.jsp";
 		String freeId = request.getParameter("freeId");
-		List <JoinProj> joinproj = null;
+		List <JoinProject> joinproj = null;
 		
 		CommonDAO cDao = CommonDAO.getInstance();
 
@@ -34,12 +35,12 @@ public class SelectProjectAction implements Action{
 		
 		if( freeTempVo != null ) {
 			// 세션을 통해 가져온 사용자의 아이디가 프리랜서일 때 해당 프리랜서가 받은 메시지 목록을 받아온다.
-			joinproj = cDao.selectJoinProjByFreeId(freeTempVo.getFreeId());
+			joinproj = cDao.selectJoinProjectByFreeId(freeTempVo.getFreeId());
 			System.out.println("프리렌서 아이디로 joinproj를 가져옴 : " + joinproj);
 			
 		} else if( empTempVo != null ) {
 			// 세션을 통해 가져온 사용자의 아이디가 사원일 때 해당 사원이 받은 메시지 목록을 받아온다.
-			joinproj = cDao.selectJoinProjByFreeId(freeId);
+			joinproj = cDao.selectJoinProjectByFreeId(freeId);
 			System.out.println("수신받는 프리랜서 아이디로 joinproj를 가져옴 : " + joinproj);
 		}
 		

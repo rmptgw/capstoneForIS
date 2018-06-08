@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ProjectInfo{
+public class JoinProject {
 	private String projNum;				// 프로젝트 번호
 	private String projCompany;			// 프로젝트 시행 회사
 	private boolean isExtern;			// 외부 프로젝트 유무
@@ -25,11 +25,14 @@ public class ProjectInfo{
 	private Date projRecruitEndDate;	// 프로젝트 인원 모집 종료일
 	private String projDevelopSort;		// 개발 분야
 	private Integer dbNum;				// 프로젝트 개발 DB 번호
-	private String frames;				// 프로젝트 사용 프레임워크와 툴들
-	private String languages;			// 프로젝트 사용 언어들
-	private String requirePeople;		// 프로젝트 모집 인원
-	private String joinPeople;			// 프로젝트에 조인한 사람들 
-	private String dbName;				// 프로젝트 개발 DB 이름
+	private String joinNum;				// 참여 번호
+	private Date joinProjDate;			// 투입일
+	private Date exitProjDate;			// 철수일
+	private String projRole;			// 역할
+	private String freeState;			// 프리랜서 상태
+	private Date applicationDate;		// 신청일
+	private Date joinAcceptDate;		// 접수일
+	private String freeId;				// 프리랜서 번호
 	
 	public String getProjNum() {
 		return projNum;
@@ -151,77 +154,99 @@ public class ProjectInfo{
 	public void setDbNum(Integer dbNum) {
 		this.dbNum = dbNum;
 	}
-	public String getFrames() {
-		return frames;
+	public String getJoinNum() {
+		return joinNum;
 	}
-	public void setFrames(String frames) {
-		this.frames = frames;
+	public void setJoinNum(String joinNum) {
+		this.joinNum = joinNum;
 	}
-	public String getLanguages() {
-		return languages;
+	public Date getJoinProjDate() {
+		return joinProjDate;
 	}
-	public void setLanguages(String languages) {
-		this.languages = languages;
+	public void setJoinProjDate(Date joinProjDate) {
+		this.joinProjDate = joinProjDate;
 	}
-	public String getRequirePeople() {
-		return requirePeople;
+	public Date getExitProjDate() {
+		return exitProjDate;
 	}
-	public void setRequirePeople(String requirePeople) {
-		this.requirePeople = requirePeople;
+	public void setExitProjDate(Date exitProjDate) {
+		this.exitProjDate = exitProjDate;
 	}
-	public String getJoinPeople() {
-		return joinPeople;
+	public String getProjRole() {
+		return projRole;
 	}
-	public void setJoinPeople(String joinPeople) {
-		this.joinPeople = joinPeople;
+	public void setProjRole(String projRole) {
+		this.projRole = projRole;
 	}
-	
-	public String getDbName() {
-		return dbName;
+	public String getFreeState() {
+		return freeState;
 	}
-	public void setDbName(String dbName) {
-		this.dbName = dbName;
+	public void setFreeState(String freeState) {
+		this.freeState = freeState;
+	}
+	public Date getApplicationDate() {
+		return applicationDate;
+	}
+	public void setApplicationDate(Date applicationDate) {
+		this.applicationDate = applicationDate;
+	}
+	public Date getJoinAcceptDate() {
+		return joinAcceptDate;
+	}
+	public void setJoinAcceptDate(Date joinAcceptDate) {
+		this.joinAcceptDate = joinAcceptDate;
+	}
+	public String getFreeId() {
+		return freeId;
+	}
+	public void setFreeId(String freeId) {
+		this.freeId = freeId;
 	}
 	
 	@Override
 	public String toString() {
-		return "ProjectInfo [frames=" + frames + ", languages=" + languages + ", requirePeople=" + requirePeople
-				+ ", joinPeople=" + joinPeople + ", dbName=" + dbName + ", projNum=" + projNum + ", projCompany="
-				+ projCompany + ", isExtern=" + isExtern + ", projField=" + projField + ", projName=" + projName
-				+ ", projState=" + projState + ", projRegisterDate=" + projRegisterDate + ", projRegisterer="
-				+ projRegisterer + ", projReviseDate=" + projReviseDate + ", projReviser=" + projReviser
-				+ ", projStartDate=" + projStartDate + ", projEndDate=" + projEndDate + ", projExpectedTime="
-				+ projExpectedTime + ", projTarget=" + projTarget + ", projPartner=" + projPartner + ", projPlan="
-				+ projPlan + ", projRecruitStartDate=" + projRecruitStartDate + ", projRecruitEndDate="
-				+ projRecruitEndDate + ", projDevelopSort=" + projDevelopSort + ", dbNum=" + dbNum + "]";
+		return "JoinProject [projNum=" + projNum + ", projCompany=" + projCompany + ", isExtern=" + isExtern
+				+ ", projField=" + projField + ", projName=" + projName + ", projState=" + projState
+				+ ", projRegisterDate=" + projRegisterDate + ", projRegisterer=" + projRegisterer + ", projReviseDate="
+				+ projReviseDate + ", projReviser=" + projReviser + ", projStartDate=" + projStartDate
+				+ ", projEndDate=" + projEndDate + ", projExpectedTime=" + projExpectedTime + ", projTarget="
+				+ projTarget + ", projPartner=" + projPartner + ", projPlan=" + projPlan + ", projRecruitStartDate="
+				+ projRecruitStartDate + ", projRecruitEndDate=" + projRecruitEndDate + ", projDevelopSort="
+				+ projDevelopSort + ", dbNum=" + dbNum + ", joinNum=" + joinNum + ", joinProjDate=" + joinProjDate
+				+ ", exitProjDate=" + exitProjDate + ", projRole=" + projRole + ", freeState=" + freeState
+				+ ", applicationDate=" + applicationDate + ", joinAcceptDate=" + joinAcceptDate + ", freeId=" + freeId
+				+ "]";
 	}
 	
 	public void setParams(ResultSet rs) throws SQLException
 	{
-		this.projNum = rs.getString("PROJNUM");
-		this.projCompany = rs.getString("PROJCOMPANY");
-		this.isExtern = rs.getBoolean("ISEXTERN");
-		this.projField = rs.getString("PROJFIELD");
-		this.projName = rs.getString("PROJNAME");
-		this.projState = rs.getString("PROJSTATE");
-		this.projRegisterDate = rs.getDate("PROJREGISTERDATE");
-		this.projRegisterer = rs.getString("PROJREGISTERER");
-		this.projReviseDate = rs.getDate("PROJREVISEDATE");
-		this.projReviser = rs.getString("PROJREVISER");
-		this.projStartDate = rs.getDate("PROJSTARTDATE");
-		this.projEndDate = rs.getDate("PROJENDDATE");
-		this.projExpectedTime = rs.getInt("PROJEXPECTEDTIME");
-		this.projTarget = rs.getString("PROJTARGET");
-		this.projPartner = rs.getString("PROJPARTNER");
-		this.projPlan = rs.getString("PROJPLAN");
-		this.projRecruitStartDate = rs.getDate("PROJRECRUITSTARTDATE");
-		this.projRecruitEndDate = rs.getDate("PROJRECRUITENDDATE");
-		this.projDevelopSort = rs.getString("PROJDEVELOPSORT");
-// --------------------------------------------------------------------------------------
-		this.frames = rs.getString("frameWorks");
-		this.languages = rs.getString("languages");
-		this.requirePeople = rs.getString("requirePeople");
-		this.joinPeople = rs.getString("joinPeople");
-		this.dbName = rs.getString("dbName");
+		this.joinNum = rs.getString("joinNum");
+		this.joinProjDate = rs.getDate("joinProjDate");
+		this.exitProjDate = rs.getDate("exitProjDate");
+		this.projRole = rs.getString("projRole");
+		this.freeState = rs.getString("freeState");
+		this.applicationDate = rs.getDate("applicationDate");
+		this.joinAcceptDate = rs.getDate("joinAcceptDate");
+		this.projNum = rs.getString("projNum");
+		this.freeId = rs.getString("freeId");
+		this.projCompany = rs.getString("projCompany");
+		this.isExtern = rs.getBoolean("isExtern");
+		this.projName = rs.getString("projName");
+		this.projField = rs.getString("projField");
+		this.projState = rs.getString("projState");
+		this.projRegisterDate = rs.getDate("projRegisterDate");
+		this.projRegisterer = rs.getString("projRegisterer");
+		this.projReviseDate = rs.getDate("projReviseDate");
+		this.projReviser = rs.getString("projReviser");
+		this.projStartDate = rs.getDate("projStartDate");
+		this.projEndDate = rs.getDate("projEndDate");
+		this.projExpectedTime = rs.getInt("projExpectedTime");
+		this.projTarget = rs.getString("projTarget");
+		this.projPartner = rs.getString("projPartner");
+		this.projPlan = rs.getString("projPlan");
+		this.projRecruitStartDate = rs.getDate("projRecruitStartDate");
+		this.projRecruitEndDate = rs.getDate("projRecruitEndDate");
+		this.projDevelopSort = rs.getString("projDevelopSort");
+		this.dbNum = rs.getInt("DBNum");
 	}
 }
