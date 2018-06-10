@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ccm.controller.action.Action;
 import ccm.dao.CommonDAO;
-import ccm.data.table.Project;
-import ccm.data.table.ProjectInfo;
+import ccm.data.table.Project_Info_view;
 
 public class GoToMainAction implements Action
 {
@@ -19,11 +18,11 @@ public class GoToMainAction implements Action
 	{
 		
 		CommonDAO cDao = CommonDAO.getInstance();
-		ProjectInfo projectInfo = cDao.selectLastRegistProject();
-		List<ProjectInfo> projectList = cDao.selectAllJoinableProject();
+		Project_Info_view project_Info_view = cDao.selectLastRegistProject();
+		List<Project_Info_view> projectList = cDao.selectAllJoinableProject();
 		
 		request.setAttribute("projectList", projectList);
-		request.setAttribute("project", projectInfo);
+		request.setAttribute("project", project_Info_view);
 		
 		request.getRequestDispatcher("common/main.jsp").forward(request, response);
 	}

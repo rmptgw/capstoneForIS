@@ -6,14 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import ccm.data.table.Employee;
-import ccm.data.table.Freelancer;
 import ccm.data.table.Interview;
 import ccm.data.table.JoinFreelancerInterview_view;
-import ccm.data.table.JoinFreelancerSkillInventory;
+import ccm.data.table.JoinFreelancerSkillInventory_view;
 import ccm.data.table.JoinProj;
 import ccm.util.DBManager;
 
@@ -344,12 +342,12 @@ public class EmployeeDAO {
 	}
 
 
-	public List<JoinFreelancerSkillInventory> selectAllJoinFreeSkillInventory() {
+	public List<JoinFreelancerSkillInventory_view> selectAllJoinFreeSkillInventory() {
 		// joinFreelancerSkillInventory뷰에 joinNum으로 접근하여 null이 아닌 데이터를 가져오는 메소드
 		String sql = "select * from joinFreelancerSkillInventory "
 				+ "where joinNum is not null and freeState = '대기중' order by joinNum";
 
-		List<JoinFreelancerSkillInventory> list = new ArrayList<JoinFreelancerSkillInventory>();
+		List<JoinFreelancerSkillInventory_view> list = new ArrayList<JoinFreelancerSkillInventory_view>();
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -361,7 +359,7 @@ public class EmployeeDAO {
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-				JoinFreelancerSkillInventory jVo = new JoinFreelancerSkillInventory();
+				JoinFreelancerSkillInventory_view jVo = new JoinFreelancerSkillInventory_view();
 
 				jVo.setJoinNum(rs.getString("joinNum"));
 				jVo.setFreeId(rs.getString("freeId"));
@@ -422,12 +420,12 @@ public class EmployeeDAO {
 		return jVo;
 	}
 	
-	public JoinFreelancerSkillInventory getJoinFreeSkillInventoryByNo(String no) {
+	public JoinFreelancerSkillInventory_view getJoinFreeSkillInventoryByNo(String no) {
 		// joinNum을 통해 joinFreelancerSkillInventory의 데이터를 가져오는 메소드
 		// TODO Auto-generated method stub
 		String sql = "select * from joinFreelancerSkillInventory where joinNum = ?";
 
-		JoinFreelancerSkillInventory jVo = null;
+		JoinFreelancerSkillInventory_view jVo = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -440,7 +438,7 @@ public class EmployeeDAO {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				jVo = new JoinFreelancerSkillInventory();
+				jVo = new JoinFreelancerSkillInventory_view();
 
 				jVo.setParams(rs);
 				
@@ -460,7 +458,7 @@ public class EmployeeDAO {
 	}
 	public void insertInterview(String freeId, String location, String date) {
 		// 사원 데이터 삽입 작성 필요
-		String sql = "insert into interview('interviewNum','interviewDate','interviewLocatioin', 'interviewState', freeId)"
+		String sql = "insert into interview(interviewNum, interviewDate, interviewLocation, interviewState, freeId)"
 				+ " VALUES(null, ?, ?, ?, ?)";
 		System.out.println("면접 삽입 시작");
 		Connection conn = null;

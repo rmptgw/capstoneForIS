@@ -15,7 +15,7 @@ import ccm.data.table.Employee;
 import ccm.data.table.Freelancer;
 import ccm.data.table.Interview;
 import ccm.data.table.JoinFreelancerInterview_view;
-import ccm.data.table.JoinFreelancerSkillInventory;
+import ccm.data.table.JoinFreelancerSkillInventory_view;
 import ccm.data.table.JoinProj;
 import ccm.data.table.Message;
 
@@ -61,7 +61,10 @@ public class AppointmentInterviewAction implements Action{
 		
 		for(int i=0; i<joinNum.length; i++) {
 			System.out.println("보내온 joinNum : " + joinNum[i]);
+			
 			joinProj= cDao.getJoinProjByNo(joinNum[i]);
+			System.out.println("참여 프로젝트 : " + joinProj);
+			
 			free = fDao.getfVo(joinProj.getFreeId());
 			Interview interview = eDao.selectOneInterviewByFreeId(free.getFreeId());
 			Message msg = new Message();

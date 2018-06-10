@@ -69,7 +69,7 @@ public class Interview
 	{
 		this.intvNum = rs.getInt("interviewNum");
 		this.intvDate = rs.getDate("interviewDate");
-		this.intvLocation = rs.getString("interviewLcation");
+		this.intvLocation = rs.getString("interviewLocation");
 		this.intvReason = rs.getString("interviewReason");
 		this.intvState = rs.getInt("interviewState");
 		this.freeNum = rs.getString("freeNum");

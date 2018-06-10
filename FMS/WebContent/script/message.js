@@ -104,7 +104,7 @@ function sendInputMsg(){
 		joinN += joinNum + "/";
 	}
 	
-	var url = "Eu?e=send_input_msg&emp=" + empId + "&projNum=" + projNum + "&joinNum" + joinN 
+	var url = "Eu?e=send_input_message&emp=" + empId + "&projNum=" + projNum + "&joinNum" + joinN 
 			"&projName=" + projName + "&join=" + join + "&drop=" + drop + "&free=" + free;
 	
 	window.opener.location.href=url;

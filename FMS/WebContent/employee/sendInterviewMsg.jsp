@@ -5,8 +5,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script type="text/javascript" src="script/interview.js?ver=1"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="script/interview.js?ver=4" charset="UTF-8"></script>
 <link rel="stylesheet" type="text/css" href="common/css/style.css">
 <title>면접일 지정</title>
 </head>
@@ -14,12 +14,12 @@
 <c:set var="now" value="<%= new java.util.Date() %>" />
 <div>
 	<form method="post" name="frm">
-		<table>
+		<table align="center" >
 			<tr>
 				<td>
 					<img class="logo" src="common/img/eureka.PNG"/>
 				</td>
-				<td>면접일 지정</td>
+				<th colspan="3" align="right">면접일 지정</th>
 			</tr>
 			<tr>
 				<th>날짜</th>
@@ -42,8 +42,8 @@
 			<tr>
 				<td colspan="4" align="center">
 					
-					<c:forEach var="free" items="${FreeList}">
-						<input type="hidden" name="freeId" value="${free.freeId}">
+					<c:forEach var="join" items="${joinProjList}">
+						<input type="hidden" name="joinNum" value="${join.joinNum}">
 					</c:forEach>
 					
 					<input type="submit" value="확인" onclick="sendAppointmentMsg(); return false;">

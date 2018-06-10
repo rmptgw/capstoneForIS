@@ -49,7 +49,7 @@ public class sendInputMessageAction implements Action{
 			
 			mVo.setEmpWriter(empId);
 			mVo.setFreeReceiver(free[i]);
-			mVo.setMsgTitle(projName + " 투입요청 메시지입니다.");
+			mVo.setMsgTitle("프로젝트 " + projName + "에 대한 투입요청 메시지입니다.");
 			mVo.setMsgContent(fVo.getFreeName() + "님 " + projName + "에 참여확정 되었습니다. \n" + 
 							join + "일 부터" + drop + "일 까지 일 하실 예정입니다. \n"
 							+ "자세한 사항은 프로젝트 시작 전후로 설명드리겠습니다. ");

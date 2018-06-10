@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ccm.controller.action.Action;
 import ccm.dao.CommonDAO;
-import ccm.data.table.ProjectInfo;
+import ccm.data.table.Project_Info_view;
 
 public class ShowProjectInfoAction implements Action{
 
@@ -25,9 +25,9 @@ public class ShowProjectInfoAction implements Action{
 		
 		
 		// 프로젝트번호가 저장된 no을 사용하여 프로젝트 정보를 가져온다.
-		ProjectInfo projectInfo = cDao.selectOneProjByNo(no);
+		Project_Info_view project_Info_view = cDao.selectOneProjByNo(no);
 		
-		request.setAttribute("project", projectInfo);
+		request.setAttribute("project", project_Info_view);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

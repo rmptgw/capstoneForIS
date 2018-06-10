@@ -3,7 +3,7 @@ package ccm.data.table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class JoinFreelancerSkillInventory{
+public class JoinFreelancerSkillInventory_view{
 	
 	private String joinNum;
 	private String freeId;

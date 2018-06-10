@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="script/interview.js?ver=1" charset="UTF-8"></script>
+<script type="text/javascript" src="script/interview.js?ver=1"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>면접일정/결과 등록</title>
 </head>
@@ -73,15 +73,13 @@
 		<table border="1">
 			<tr>
 				<th colspan="4">면접 결과 등록</th>
-				<th>
-					<td>정렬기준</td>
-					<td>
-						<select align="right">
-							<option>상태순</option>
-							<option>날짜순</option>
-						</select>
-					</td>
-				</th>
+				<td>정렬기준</td>
+				<td>
+					<select>
+						<option>상태순</option>
+						<option>날짜순</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<th>상태</th>
@@ -120,18 +118,18 @@
 						value="${interview.interviewLocation}" readonly="readonly">
 					</td>
 					<td>
-						<lable>
-							<input type="radio" 	name="choice[1]" 	id="sucess" value="sucess" 
-							onselect="freeState('sucess')">채용
-							<input type="radio" 	name="choice[2]" 	id="hold" 	value="hold"
-							onselect="freeState('hold')">보류
-							<input type="radio" 	name="choice[3]" 	id="fail" 	value="fail"
-							onselect="freeState('fail')">불채용
-						</lable>
+						<label>
+							<input type="radio" 	name="choice[${status.index}]" 	id="sucess" value="sucess" 
+							onselect="freeState('sucess');">채용
+							<input type="radio" 	name="choice[${status.index}]" 	id="hold" 	value="hold"
+							onselect="freeState('hold');">보류
+							<input type="radio" 	name="choice[${status.index}]" 	id="fail" 	value="fail"
+							onselect="freeState('fail');">불채용
+						</label>
 						<input type="hidden" 	name="freeState" id="freeState">
 					</td>
 					<td colspan="2">
-						<input type="text" 		name="interviewReason">
+						<input type="text" 		name="interviewReason[${status.index}]">
 					</td>
 				</tr>
 			</c:forEach>

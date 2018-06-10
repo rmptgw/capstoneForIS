@@ -11,10 +11,10 @@ import java.util.List;
 import ccm.data.table.Employee;
 import ccm.data.table.Freelancer;
 import ccm.data.table.JoinProj;
-import ccm.data.table.JoinProject;
+import ccm.data.table.JoinProject_view;
 import ccm.data.table.Message;
 import ccm.data.table.Project;
-import ccm.data.table.ProjectInfo;
+import ccm.data.table.Project_Info_view;
 import ccm.util.DBManager;;
 
 public class CommonDAO
@@ -447,11 +447,11 @@ public class CommonDAO
 		return pVo;
 	}
 	
-	public ProjectInfo selectLastRegistProject() {
+	public Project_Info_view selectLastRegistProject() {
 		// 가장 최근에 등록된 프로젝트의 정보와 그에 관련된 정보(필요인원, 신청인원, 사용언어들, 사용프레임워크들)를 가져오는 메소드
 		String sql = "select * from project_info3 order by projRegisterDate desc limit 1";
 
-		ProjectInfo pVo = null;
+		Project_Info_view pVo = null;
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -464,7 +464,7 @@ public class CommonDAO
 
 			if (rs.next()) {
 				
-				pVo = new ProjectInfo();
+				pVo = new Project_Info_view();
 
 				pVo.setParams(rs);
 				
@@ -482,11 +482,11 @@ public class CommonDAO
 		return pVo;
 	}
 	
-	public List<ProjectInfo> selectAllJoinableProject() {
+	public List<Project_Info_view> selectAllJoinableProject() {
 		// 시작하지 않은 프로젝트들을 가져오는 메소드 
 		String sql = "select * from project_info3 where projStartDate >= now() order by projNum desc";
 
-		List<ProjectInfo> list = new ArrayList<ProjectInfo>();
+		List<Project_Info_view> list = new ArrayList<Project_Info_view>();
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -498,7 +498,7 @@ public class CommonDAO
 			rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-				ProjectInfo pVo = new ProjectInfo();
+				Project_Info_view pVo = new Project_Info_view();
 
 				pVo.setParams(rs);
 				
@@ -514,11 +514,11 @@ public class CommonDAO
 		return list;
 	}
 	
-	public ProjectInfo selectOneProjByNo(String No) {
+	public Project_Info_view selectOneProjByNo(String No) {
 		// 프로젝트 번호로 project_info3 뷰에서 정보를 받아오는 메소드
 		String sql = "select * from project_info3 where projNum=?";
 
-		ProjectInfo pVo = null;
+		Project_Info_view pVo = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -533,7 +533,7 @@ public class CommonDAO
 
 			if (rs.next()) {
 				
-				pVo = new ProjectInfo();
+				pVo = new Project_Info_view();
 
 				pVo.setParams(rs);
 
@@ -551,10 +551,10 @@ public class CommonDAO
 		return pVo;
 	}
 	
-	public List<JoinProject> selectJoinProjectByFreeId(String id) {
+	public List<JoinProject_view> selectJoinProjectByFreeId(String id) {
 		String sql = "select * from joinProject where freeId='"+ id + "' order by joinNum desc";
 
-		List<JoinProject> list = new ArrayList<JoinProject>();
+		List<JoinProject_view> list = new ArrayList<JoinProject_view>();
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -567,7 +567,7 @@ public class CommonDAO
 
 			while (rs.next()) {
 				
-				JoinProject jVo = new JoinProject();
+				JoinProject_view jVo = new JoinProject_view();
 				
 				jVo.setParams(rs);
 				

@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import ccm.controller.action.Action;
 import ccm.dao.CommonDAO;
 import ccm.dao.EmployeeDAO;
-import ccm.dao.FreelancerDAO;
-import ccm.data.table.Employee;
-import ccm.data.table.Freelancer;
 import ccm.data.table.JoinProj;
 
 public class AppointmentInterviewFormAction implements Action{
@@ -43,7 +40,7 @@ public class AppointmentInterviewFormAction implements Action{
 			eDao.updateInterviewStateByJoinNum(joinNum[i]);
 		}
 		
-		request.setAttribute("joinFreeList", join);
+		request.setAttribute("joinProjList", join);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

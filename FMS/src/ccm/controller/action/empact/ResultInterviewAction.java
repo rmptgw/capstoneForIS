@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import ccm.controller.action.Action;
 import ccm.dao.EmployeeDAO;
-import ccm.data.table.Interview;
-import ccm.data.table.JoinProj;
 
 public class ResultInterviewAction implements Action{
 

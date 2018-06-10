@@ -1,7 +1,6 @@
 package ccm.controller.actfac;
 
 import ccm.controller.action.Action;
-import ccm.controller.action.comact.SendInputMessage;
 import ccm.controller.action.empact.*;
 
 public class EmployeeAF
@@ -38,7 +37,10 @@ public class EmployeeAF
 			action = new InterviewScheduleAction();
 		} else if (command.equals("send_input_message")) {
 			// 투입메시지를 전송하는 액션
-			action = new SendInputMessage();
+			action = new sendInputMessageAction();
+		} else if (command.equals("send_input_message_form")) {
+			// 투입메시지를 전송하는 액션
+			action = new SendInputMessageFormAction();
 		} 
 		
 		return action;
