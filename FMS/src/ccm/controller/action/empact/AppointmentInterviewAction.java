@@ -29,10 +29,10 @@ public class AppointmentInterviewAction implements Action{
 		// 폼을 통해 보내온 데이터를 각 객체에 넣는다.
 		String no = request.getParameter("no");
 		String[] joinNum = no.split("/");
-		String content = request.getParameter("content");
+		String content = new String(request.getParameter("content").getBytes("8859_1"), "UTF-8");
 		String interviewDate = request.getParameter("interviewDate");
 		String interviewTime = request.getParameter("interviewTime");
-		String location = request.getParameter("location");
+		String location = new String(request.getParameter("location").getBytes("8859_1"), "UTF-8");
 		
 		if(content == null) {
 			content = "";

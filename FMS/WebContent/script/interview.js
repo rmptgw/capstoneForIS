@@ -1,14 +1,17 @@
-function freeState(freeState){
+function freeState(num, freeState){
 
 	switch(freeState){
-	case sucess:
-		document.getElement("freeState").value="1";
+	case "sucess":
+		document.getElement('freeState' + num ).value=1;
 		break;
-	case hold:
-		document.getElement("freeState").value="2";
+	case "hold":
+		document.getElement('freeState' + num ).value=2;
 		break;
-	case fail:
-		document.getElement("freeState").value="3";
+	case "fail":
+		document.getElement('freeState' + num ).value=3;
+		break;
+	default:
+		document.getElement('freeState' + num ).value=0;
 		break;
 	}
 }
@@ -79,8 +82,8 @@ function sendAppointmentMsg(){
 	alert("프리랜서 아이디 : " +  no + "\n location : " + location + "\n time : " + time 
 			+ "\n date : " + date + "\n content : " + content);
 	
-	var url = "Eu?e=appointment_interview&no=" + no + "&location=" + encodeURI(location, "UTF-8") + 
-	"&interviewDate=" + date + "&interviewTime=" + time + "&content=" + encodeURI(content,"UTF-8");
+	var url = "Eu?e=appointment_interview&no=" + no + "&location=" + location+ 
+	"&interviewDate=" + date + "&interviewTime=" + time + "&content=" + content;
 	
 	window.opener.location.href = url;
 	
@@ -88,23 +91,65 @@ function sendAppointmentMsg(){
 }
 
 function sendResultMsg(){
-	if(document.resultInterviewFrm.freeState == null || 
-			document.resultInterviewFrm.freeState == ""){
+	
+	var i = 0;
+	var a = 0;
+	var b = 0;
+	
+	for(var k=0; k < 10; k++){
+		if(
+			document.resultInterviewFrm.freeState[k].value == null || 
+			document.resultInterviewFrm.freeState[k].value == "" ||
+			document.resultInterviewFrm.freeState[k].value == 0){
+			a++;
+		}
+		if(document.resultInterviewFrm.interviewReason.value == null || 
+				document.resultInterviewFrm.interviewReason.value == ""){
+			b++;
+		}
+	}
+	
+	if( a == 0 ){
 		alert("채용 여부는 반드시 입력해야 하는 항목입니다.");
 		resultInterviewFrm.choice.focus();
 		return false;
 	}
-	if(document.resultInterviewFrm.interviewReason == null || 
-			document.resultInterviewFrm.interviewReason == ""){
+	
+	if( b == 0 ){
 		alert("사유는 반드시 입력해야 하는 항목입니다.");
 		resultInterviewFrm.choice.focus();
 		return false;
 	}
 	
-	var join = document.gerElementsByName('joinNum');
+	var interviewNum = document.getElementsByName('interviewNum');
+	var joinNum = document.getElementsByName('joinNum');
 	var freeState = document.getElementsByName('freeState');
-	var freeId = document.gerElementsByName('freeId');
-	var interviewReason = document.getElementsByName('interviewReason')
+	var interviewReason = document.getElementsByName('interviewReason');
 	
-	var url = "Eu?e=result_interview&"
+	var no = "";
+	var state = "";
+	var reason = "";
+	var joinNo = "";
+	
+	for(i=0;i<10;i++){
+		no += interviewNum[i].value + "/";
+		
+		state += freeState[i].value + "/";
+		
+		reason += interviewReason[i].value + "/";
+		
+		joinNo += joinNum[i].value + "/";
+		
+	}
+	
+	alert(
+		"no : " + no + "\n" + 
+		"freeState : " + state + "\n" + 
+		"interviewReason : " + reason + "\n" + 
+		"joinNum : " + joinNo + "\n" +
+		"i : " + i
+		
+	);
+	
+	var url = "Eu?e=result_interview&" ;
 }

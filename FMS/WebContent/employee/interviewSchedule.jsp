@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="script/interview.js?ver=1"></script>
+<script type="text/javascript" src="script/interview.js?ver=1.134" charset="UTF-8"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>면접일정/결과 등록</title>
 </head>
@@ -44,7 +44,7 @@
 				<th>선택</th>
 			</tr>
 			<!-- 조인을 이용하여 보여주기 경력, 프리랜서, 언어, 툴/프레임워크 -->
-			<c:forEach var="joinFree" items="${joinFreeList}" end="4">
+			<c:forEach var="joinFree" items="${joinFreeList}" end="9">
 				<tr>
 					<td>${joinFree.freeState}</td>
 					<td>${joinFree.freeName}</td>
@@ -89,7 +89,7 @@
 				<th>채용여부</th>
 				<th colspan="2">사유</th>
 			</tr>
-			<c:forEach var="interview" items="${joinFreeInterviewList}" end="4" varStatus="status">
+			<c:forEach var="interview" items="${joinFreeInterviewList}" end="9" varStatus="status">
 				<tr>
 					<td>
 						<c:choose>
@@ -106,8 +106,8 @@
 					<td>
 						<input type="text" name="freeName" value="${interview.freeName}" 
 						readonly="readonly">
-						<input type="hidden" name="freeId" value="${interview.freeId}">
-						<input type="hidden" name = "joinNum" value="${interview.joinNum}">
+						<input type="hidden" name="interviewNum" value="${interview.interviewNum}">
+						<input type="hidden" name="joinNum" value="${interview.joinNum}">
 					</td>
 					<td>
 						<input type="text" name="interviewDate" value="${interview.interviewDate}" 
@@ -120,22 +120,22 @@
 					<td>
 						<label>
 							<input type="radio" 	name="choice[${status.index}]" 	id="sucess" value="sucess" 
-							onselect="freeState('sucess');">채용
+							onchange="freeState([${status.index}],'sucess');">채용
 							<input type="radio" 	name="choice[${status.index}]" 	id="hold" 	value="hold"
-							onselect="freeState('hold');">보류
+							onchange="freeState([${status.index}],'hold');">보류
 							<input type="radio" 	name="choice[${status.index}]" 	id="fail" 	value="fail"
-							onselect="freeState('fail');">불채용
+							onchange="freeState([${status.index}],'fail');">불채용
 						</label>
-						<input type="hidden" 	name="freeState" id="freeState">
+						<input type="hidden" 	name="freeState"	id="freeState${status.index}" >
 					</td>
 					<td colspan="2">
-						<input type="text" 		name="interviewReason[${status.index}]">
+						<input type="text" 		name="interviewReason">
 					</td>
 				</tr>
 			</c:forEach>
 			<tr>
 				<td colspan="7" align="right">
-					<input type="submit" value="결과등록" onclick="return sendResultMsg()">
+					<input type="button" value="결과등록" onclick="sendResultMsg(); return false;">
 				</td>
 			</tr>
 		</table>
