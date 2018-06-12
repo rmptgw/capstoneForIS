@@ -71,6 +71,7 @@
 			</tr>
 		</table>
 	</div>
+	<br>
 	<div>
 		<table align="center" border="1">
 			<tr>
