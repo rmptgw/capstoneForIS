@@ -107,19 +107,29 @@ function sendAppointmentMsg(){
 }
 
 function sendResultMsg(){
-	for(i=0; i<10; i++){
-		if(document.getElementById("fState"+i).value != null || document.getElementById("fState"+i).value != ""){
-			if(document.getElementById("interiviewReason"+i).value == null || document.getElementById("interviewReason"+i).value == ""){
-				alert("사유를 적어주세요");
-				return false;
-			}
-		}
+	// 유효성 검사를 하기 위해 freeState와 interviewReason을 받아온다.
+	var freeState = document.getElementsByName("freeState");
+	var interviewReason = document.getElementsByName("interviewReason");
 	
-		if(document.getElementById("interiviewReason"+i).value != null || document.getElementById("interiviewReason"+i).value != ""){
-			if(document.getElementById("fState"+i).value == null || document.getElementById("fState"+i).value == ""){
-				alert("채용여부를 확인해 주세요");
-				return false;
-			}
+	var state = 0 , reason = 0;
+	
+	for(i=0; i<freeState.length; i++){
+		if(freeState[i].checked == true){
+			state+=1;
+		}
+		if(interviewReason[i].value != null || 
+				interviewReason[i].value != "" || 
+				interviewReason[i].value != undefined){
+			reason+=1;
 		}
 	}
+	if(reason == 0){
+		alert("사유를 적지 않으셨습니다.");
+		return false;
+	}
+	if(state == 0){
+		alert("채용여부를 선택하지 않으셨습니다.");
+		return false;
+	}
+	
 }
