@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="script/interview.js?ver=1.187" charset="UTF-8"></script>
+<script type="text/javascript" src="script/interview.js?ver=1.191" charset="UTF-8"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>면접일정/결과 등록</title>
 </head>
