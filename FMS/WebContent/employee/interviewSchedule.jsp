@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="script/interview.js?ver=1.134" charset="UTF-8"></script>
+<script type="text/javascript" src="script/interview.js?ver=1.174" charset="UTF-8"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>면접일정/결과 등록</title>
 </head>
@@ -69,7 +69,7 @@
 </div>
 <br>
 <div align="center">
-	<form action="Eu?e=result_interview" method="post" name="resultInterviewFrm">
+	<form method="post" name="resultInterviewFrm">
 		<table border="1">
 			<tr>
 				<th colspan="4">면접 결과 등록</th>
@@ -118,15 +118,17 @@
 						value="${interview.interviewLocation}" readonly="readonly">
 					</td>
 					<td>
-						<label>
-							<input type="radio" 	name="choice[${status.index}]" 	id="sucess" value="sucess" 
-							onchange="freeState([${status.index}],'sucess');">채용
-							<input type="radio" 	name="choice[${status.index}]" 	id="hold" 	value="hold"
-							onchange="freeState([${status.index}],'hold');">보류
-							<input type="radio" 	name="choice[${status.index}]" 	id="fail" 	value="fail"
-							onchange="freeState([${status.index}],'fail');">불채용
-						</label>
-						<input type="hidden" 	name="freeState"	id="freeState${status.index}" >
+						<input type="radio" 	name="choice${status.index}" 	id="sucess${status.index}" value="sucess" 
+							onchange="return state(${status.index}, 's');"/>
+						<label for="sucess${status.index}">채용</label>
+						<input type="radio" 	name="choice${status.index}" 	id="hold${status.index}" 	value="hold"
+							onchange="return state(${status.index}, 'h');"/>
+						<label for="hold${status.index}">보류</label>
+						<input type="radio" 	name="choice${status.index}" 	id="fail${status.index}" 	value="fail"
+							onchange="return state(${status.index}, 'f');"/>
+						<label for="fail${status.index}">불채용</label>
+						
+						<input type="hidden" 	name="freeState"	id="fState${status.index}" >
 					</td>
 					<td colspan="2">
 						<input type="text" 		name="interviewReason">
@@ -135,7 +137,7 @@
 			</c:forEach>
 			<tr>
 				<td colspan="7" align="right">
-					<input type="button" value="결과등록" onclick="sendResultMsg(); return false;">
+					<input type="submit" value="결과등록" onclick="sendResultMsg(); return false;">
 				</td>
 			</tr>
 		</table>

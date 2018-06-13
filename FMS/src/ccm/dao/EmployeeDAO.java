@@ -232,9 +232,9 @@ public class EmployeeDAO {
 	}
 	
 	// 인터뷰 한 결과에 대한 사유와 면접상태를 2(면접완료)로 업데이트 하는  메소드
-	public Interview updateInterviewReasonByfreeId(String freeId, String interviewReason) {
+	public Interview updateInterviewReasonByinterviewNo(String no, String interviewReason) {
 		String sql = "update interview set nothireReason = ?, interviewState='2'"
-				+ "where freeId=?";
+				+ "where interviewNum = ?";
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -244,7 +244,7 @@ public class EmployeeDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, interviewReason);
-			pstmt.setString(2, freeId);
+			pstmt.setString(2, no);
 			
 			pstmt.executeUpdate();
 			

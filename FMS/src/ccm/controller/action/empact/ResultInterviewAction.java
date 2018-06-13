@@ -18,25 +18,51 @@ public class ResultInterviewAction implements Action{
 		String url = "employee/interviewSchedule.jsp";
 		
 		// 각 이름으로 받아오는 파라메터 값을 String형 배열에 적용한다.
-		String[] interviewReason = request.getParameterValues("interviewReason");
-		String[] joinNum = request.getParameterValues("joinNum");
-		String[] freeId = request.getParameterValues("free[]");
-		String[] choice = request.getParameterValues("choice[]");
+		String interviewReason = new String(request.getParameter("interviewReason").getBytes("8859_1"),"UTF-8");
+		String joinNum = request.getParameter("joinNum");
+		String freeState = request.getParameter("freeState");
+		String interviewNum = request.getParameter("no");
+		
+		System.out.println("interviewReason : " + interviewReason);
+		System.out.println("interviewNum : " + interviewNum);
+		System.out.println("joinNum : " + joinNum);
+		System.out.println("freeState : " + freeState);
+		
+		String[] state = freeState.split("/");
+		String[] joinNo = joinNum.split("/");
+		String[] reason = interviewReason.split("/");
+		String[] no = interviewNum.split("/");
+		
 		
 		EmployeeDAO eDao = EmployeeDAO.getInstance();
 		
-		for(int i=1; i < joinNum.length; i++) {
-			eDao.updateInterviewReasonByfreeId(freeId[i], interviewReason[i]);
+		for(int i=0; i<joinNo.length; i++) {
+			System.out.println("state" + i + " : " + state);
+			System.out.println("reason" + i + " : " + reason);
+			System.out.println("interviweNum" + i + " : " + no);
+			System.out.println("joinNum" + i + " : " + joinNo);
+		}
+		
+		
+		for(int i=0; i < joinNo.length; i++) {
+			if(state[i] == null || state[i] == "") {
+				continue;
+			}
+			if(reason[i] == null || reason[i] == "") {
+				continue;
+			}
 			
-			switch(choice[i]) {
+			eDao.updateInterviewReasonByinterviewNo(no[i], reason[i]);
+			
+			switch(state[i]) {
 			case "sucess":
-				eDao.updateFreeStateByJoinNum(joinNum[i], "참여중");
+				eDao.updateFreeStateByJoinNum(joinNo[i], "참여중");
 				break;
 			case "hold":
-				eDao.updateFreeStateByJoinNum(joinNum[i], "보류");
+				eDao.updateFreeStateByJoinNum(joinNo[i], "보류");
 				break;
 			case "fail":
-				eDao.updateFreeStateByJoinNum(joinNum[i], "불채용");
+				eDao.updateFreeStateByJoinNum(joinNo[i], "불채용");
 				break;
 			}
 		}

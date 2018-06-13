@@ -1,26 +1,54 @@
-function freeState(num, freeState){
+function state(num, state){
 
+	alert(num);
+	
+	/*
 	switch(freeState){
 	case "sucess":
-		document.getElement('freeState' + num ).value=1;
+		document.getElementByName("freeState[" + num + "]").value = "sucess";
 		break;
 	case "hold":
-		document.getElement('freeState' + num ).value=2;
+		document.getElementByName("freeState[" + num + "]").value = "hold";
 		break;
 	case "fail":
-		document.getElement('freeState' + num ).value=3;
+		document.getElementByName("freeState[" + num + "]").value = "fail";
 		break;
 	default:
-		document.getElement('freeState' + num ).value=0;
+		document.getElementByName("freeState[" + num + "]").value = "";
 		break;
+	}*/
+	var choice = document.getElementsByName("choice" + num )[0].value;
+	
+	alert(state);
+	
+	if( state == "s" ){
+	
+		document.getElementById("fState" + num ).value = "sucess";
+		alert("sucess");
+		
+	} else if ( state == "h" ) {
+		
+		document.getElementById("fState" + num ).value = "hold";
+		alert("hold");
+		
+	} else if ( state == "f") {
+		
+		document.getElementById("fState" + num ).value = "fail";
+		alert("fail");
+		
+	} else {
+	
+		alert("아무 값도 안들어옴");
+		
 	}
+	
 }
 
 function sendInterviewMsg(){
 	// 면접일 지정을 위한 메시지창을 팝업창으로 띄워주는 메소드
 	
 	// checks 변수를 선언한 후 부모화면에서 이름이 checks인 체크박스의 value를 받아온다.
-	var checks = document.getElementsByName('checks');
+	var checks = document.getElementsByName("checks");
 	
 	var chk = "";
 	
@@ -38,9 +66,9 @@ function sendInterviewMsg(){
 		alert("면접을 볼 프리랜서를 선택해 주세요");
 		return false;
 	}
-	/*
-	alert(chk);
-	*/
+	
+	/*alert(chk);*/
+	
 	
 	// 펼쳐질 팝업창의 주소
 	var url = "Eu?e=appointment_interview_form&chk=" + chk;
@@ -67,7 +95,7 @@ function sendAppointmentMsg(){
 		return false;
 	}
 	
-	var inputs = document.getElementsByName('joinNum');
+	var inputs = document.getElementsByName("joinNum");
 	var location = document.frm.location.value;
 	var time = document.frm.time.value;
 	var date = document.frm.date.value;
@@ -98,9 +126,9 @@ function sendResultMsg(){
 	
 	for(var k=0; k < 10; k++){
 		if(
-			document.resultInterviewFrm.freeState[k].value == null || 
-			document.resultInterviewFrm.freeState[k].value == "" ||
-			document.resultInterviewFrm.freeState[k].value == 0){
+			document.resultInterviewFrm.fState[k].value == null || 
+			document.resultInterviewFrm.fState[k].value == "" ||
+			document.resultInterviewFrm.fState[k].value == 0){
 			a++;
 		}
 		if(document.resultInterviewFrm.interviewReason.value == null || 
@@ -121,10 +149,10 @@ function sendResultMsg(){
 		return false;
 	}
 	
-	var interviewNum = document.getElementsByName('interviewNum');
-	var joinNum = document.getElementsByName('joinNum');
-	var freeState = document.getElementsByName('freeState');
-	var interviewReason = document.getElementsByName('interviewReason');
+	var interviewNum = document.getElementsByName("interviewNum");
+	var joinNum = document.getElementsByName("joinNum");
+	var freeState = document.getElementsByName("freeState");
+	var interviewReason = document.getElementsByName("interviewReason");
 	
 	var no = "";
 	var state = "";
@@ -151,5 +179,9 @@ function sendResultMsg(){
 		
 	);
 	
-	var url = "Eu?e=result_interview&" ;
+	
+	var url = "Eu?e=result_interview&no=" + no + "&freeState=" + state + 
+				"&interviewReason=" + reason + "&joinNum=" + joinNo ;
+	
+	location.href = url;
 }
