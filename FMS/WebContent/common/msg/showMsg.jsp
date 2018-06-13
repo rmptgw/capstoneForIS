@@ -43,29 +43,12 @@
 								${free.freeName}
 								<input type="hidden" name="freeWriter" value="${message.freeWriter}">
 							</c:when>
-							<c:when test="${message.empReceiver != null}">
-								${emp.empName}
-								<input type="hidden" name="empWriter" value="${message.empWriter}">
-							</c:when>
-							<c:when test="${message.freeWriter != null}">
-								${free.freeName}
-								<input type="hidden" name="freeWriter" value="${message.freeWriter}">
-							</c:when>
 						</c:choose>
 							, ${message.msgSendDate})
 					</td>
 				</tr>
 				<tr>
-					<th>
-						<c:choose>
-							<c:when test="${message.empWriter != null || message.freeWriter != null}">
-								발신자
-							</c:when>
-							<c:when test="${message.empReceiver != null || message.freeReceiver != null}">
-							수신자
-							</c:when>
-						</c:choose>
-					</th>
+					<th>발신자</th>
 					<td>
 						<c:choose>
 							<c:when test="${message.empWriter != null}">
@@ -76,16 +59,6 @@
 								<input type="hidden" name="empReceiver" value="${message.freeWriter}" readonly="readonly">
 								${free.freeName}
 							</c:when>
-							<c:choose>
-								<c:when test="${message.freeReceiver == null}">
-									<input type="hidden" name="freeReceiver" value="${message.empReceiver}" readonly="readonly">
-									${message.empReceiver}
-								</c:when>
-								<c:when test="${message.empReceiver == null}">
-									<input type="hidden" name="empReceiver" value="${message.freeReceiver}" readonly="readonly">
-									${message.freeReceiver}
-								</c:when>
-							</c:choose>
 						</c:choose>
 					</td>
 					<th>발신일</th>
@@ -110,15 +83,7 @@
 				</tr>
 				<tr>
 					<td colspan="6" align="right">
-						<c:choose>
-							<c:when test="${message.empWriter != null || message.freeWriter != null}">
-								<input type="submit" value="답글쓰기">
-							</c:when>
-							<c:when test="${message.empReceiver != null || message.freeReceiver != null}">
-								<input type="submit" value="전달하기">
-							</c:when>
-						</c:choose>
-						
+						<input type="submit" value="답글쓰기">
 					</td>
 				</tr>
 			</table>
@@ -159,8 +124,7 @@
 							<c:when test="${message.empWriter == null}">
 								${message.freeWriter}
 							</c:when>
-						</c:choose>
-					</td>
+						</c:choose></td>
 					<!-- 수신일 / 작성일 -->
 					<td>${message.msgSendDate}</td>
 					<!-- 메세지 확인 여부 -->
@@ -177,58 +141,6 @@
 				</tr>
 			</c:forEach>
 		</table>
-		</form>
-		<form method="post" action="Eu?c=show_send_message">
-			<table name="prevSendMassege" border="1" align="center">
-				<tr>
-					<td colspan="5">
-						<h3>보낸 메세지</h3>
-					</td>
-				</tr>
-				<tr>
-					<td>번호</td>
-					<td>제목</td>
-					<td>수신자</td>
-					<td>작성일<!-- 수신일 --></td>
-					<td>메세지 확인 여부</td>
-				</tr>
-				<c:forEach var="message" items="${messageList}" varStatus="status">
-					<tr class="record">
-						<!-- 번호 -->
-						<td>${status.count}</td>
-						<!-- 제목 -->
-						<td>
-							<a href="Eu?c=show_message&no=${message.msgNum}&projNo=${message.projNum}">
-								${message.msgTitle}
-							</a>
-						</td>
-						<!-- 수신자 -->
-						<td>
-							<c:choose>
-								<c:when test="${message.freeReceiver == null}">
-									${message.empReceiver}
-								</c:when>
-								<c:when test="${message.empReceiver == null}">
-									${message.freeReceiver}
-								</c:when>
-							</c:choose>
-						</td>
-						<!-- 수신일 / 작성일 -->
-						<td>${message.msgSendDate}</td>
-						<!-- 메세지 확인 여부 -->
-						<td>
-							<c:choose>
-								<c:when test="${message.msgChecked != '1'}">
-									<label>미확인</label>
-								</c:when>
-								<c:otherwise>
-									<label>확인</label>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
 		</form>
 	</div>
 	<br>
