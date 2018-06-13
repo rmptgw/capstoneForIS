@@ -288,7 +288,7 @@ public class EmployeeDAO {
 	// joinFreelancerInterview 뷰에 접근하여 상태(freeState)가 접수완료인 필드를 가져오는 메소드
 	public List<JoinFreelancerInterview_view> selectJoinFreeInterview() {
 		String sql = "select * from joinFreeLancerInterview where freeState=" +
-					" '접수완료' order by joinNum";
+					" '접수완료' or freeState = '보류' order by joinNum";
 
 		List<JoinFreelancerInterview_view> list = new ArrayList<JoinFreelancerInterview_view>();
 		Connection conn = null;

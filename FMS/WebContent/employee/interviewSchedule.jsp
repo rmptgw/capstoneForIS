@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="script/interview.js?ver=1.174" charset="UTF-8"></script>
+<script type="text/javascript" src="script/interview.js?ver=1.187" charset="UTF-8"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>면접일정/결과 등록</title>
 </head>
@@ -69,7 +69,7 @@
 </div>
 <br>
 <div align="center">
-	<form method="post" name="resultInterviewFrm">
+	<form action="Eu?e=result_interview" method="post" name="resultInterviewFrm">
 		<table border="1">
 			<tr>
 				<th colspan="4">면접 결과 등록</th>
@@ -99,6 +99,10 @@
 							</c:when>
 							<c:when test="${interview.interviewState == 1}">
 								<input type="text" name="interviewState" value="면접완료" 
+								readonly="readonly">
+							</c:when>
+							<c:when test="${interview.interviewState == 2}">
+								<input type="text" name="interviewState" value="보류" 
 								readonly="readonly">
 							</c:when>
 						</c:choose>
@@ -131,13 +135,13 @@
 						<input type="hidden" 	name="freeState"	id="fState${status.index}" >
 					</td>
 					<td colspan="2">
-						<input type="text" 		name="interviewReason">
+						<input type="text" 		name="interviewReason" id="interviewReason${status.index}">
 					</td>
 				</tr>
 			</c:forEach>
 			<tr>
 				<td colspan="7" align="right">
-					<input type="submit" value="결과등록" onclick="sendResultMsg(); return false;">
+					<input type="submit" value="결과등록" onclick="return sendResultMsg();">
 				</td>
 			</tr>
 		</table>
