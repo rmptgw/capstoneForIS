@@ -23,7 +23,7 @@ public class ShowSendMessageAction implements Action{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// showMsg/메시지 확인 페이지로 이동하는 액션
-		String url = "common/msg/showMsg.jsp";
+		String url = "common/msg/showSendMsg.jsp";
 		
 		// 보내진 no를 msgNo 변수에 적용한다.
 		String msgNo = request.getParameter("no");
@@ -60,12 +60,12 @@ public class ShowSendMessageAction implements Action{
 		
 		if( freeTempVo != null ) {
 			// 세션을 통해 가져온 사용자의 아이디가 프리랜서일 때 해당 프리랜서가 받은 메시지 목록을 받아온다.
-			messageList = cDao.selectAllMsgFree(freeTempVo.getFreeId());
+			messageList = cDao.selectAllMsgSendFree(freeTempVo.getFreeId());
 			
 			System.out.println("프리랜서 아이디를 통해 가져온 프리랜서가 받은 이전 메시지 : " + messageList);
 		} else if( empTempVo != null ) {
 			// 세션을 통해 가져온 사용자의 아이디가 사원(관리자)일 때 해당 사원(관리자)이 받은 메시지 목록을 받아온다.
-			messageList = cDao.selectAllMsgEmp(empTempVo.getEmpId());
+			messageList = cDao.selectAllMsgSendEmp(empTempVo.getEmpId());
 			
 			System.out.println("사원 아이디를 통해 가져온 프리랜서가 받은 이전 메시지 : " + messageList);
 		}

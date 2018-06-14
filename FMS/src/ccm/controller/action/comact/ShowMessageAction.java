@@ -99,6 +99,8 @@ public class ShowMessageAction implements Action{
 		request.setAttribute("messageList", messageList);
 		request.setAttribute("message", message);
 		request.setAttribute("project", project);
+		request.setAttribute("employee", employee);
+		request.setAttribute("freelancer", freelancer);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);
