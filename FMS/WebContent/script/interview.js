@@ -111,25 +111,51 @@ function sendResultMsg(){
 	var freeState = document.getElementsByName("freeState");
 	var interviewReason = document.getElementsByName("interviewReason");
 	
-	var state = 0 , reason = 0;
+	var state = "" , reason = "", diff = "";
 	
-	for(i=0; i<freeState.length; i++){
-		if(freeState[i].checked == true){
-			state+=1;
+	
+	
+	for( i = 0; i < freeState.length; i++){
+		
+		if(	freeState[i].value != null || 
+			freeState[i].value.trim() != "" ){
+
+			state += freeState[i].value;
 		}
-		if(interviewReason[i].value != null || 
-				interviewReason[i].value != "" || 
-				interviewReason[i].value != undefined){
-			reason+=1;
+		if(	interviewReason[i].value != null || 
+			interviewReason[i].value.trim() != "" ){
+			
+			reason += interviewReason[i].value;
+		}
+		if( 
+			(	freeState[i].value == null || 
+				freeState[i].value.trim() == "" )
+				&&
+			(	interviewReason[i].value != null || 
+				interviewReason[i].value.trim() != "")){
+			diff += "+";
+		} else if (
+			(	freeState[i].value != null || 
+				freeState[i].value.trim() != "" )
+				&&
+			(	interviewReason[i].value == null || 
+				interviewReason[i].value.trim() == "")
+		) {
+			diff += "+";
 		}
 	}
-	if(reason == 0){
-		alert("사유를 적지 않으셨습니다.");
-		return false;
-	}
-	if(state == 0){
+	
+	if(state.trim() == ""){
 		alert("채용여부를 선택하지 않으셨습니다.");
 		return false;
 	}
 	
+	if(reason.trim() == ""){
+		alert("사유를 적지 않으셨습니다.");
+		return false;
+	}
+	if(diff != ""){
+		alert("채용여부와 사유의 선택이 맞지 않습니다.");
+		return false;
+	}
 }
