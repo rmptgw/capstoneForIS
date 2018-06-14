@@ -13,6 +13,7 @@ import ccm.controller.action.comact.SelectProjectAction;
 import ccm.controller.action.comact.SelectReceiverAction;
 import ccm.controller.action.comact.ShowMessageAction;
 import ccm.controller.action.comact.ShowProjectInfoAction;
+import ccm.controller.action.comact.ShowSendMessageAction;
 
 /***************************
  * 
@@ -68,6 +69,9 @@ public class CommonAF
 		} else if (command.equals("show_message")) {
 			// 메세지를 확인하는 액션
 			action = new ShowMessageAction();
+		} else if (command.equals("show_send_message")) {
+			// 메세지를 확인하는 액션
+			action = new ShowSendMessageAction();
 		} else if (command.equals("msg_select_project")) {
 			// 메세지와 연관된 프로젝트 번호를 프로젝트에 넣어주는 액션
 			action = new SelectProjectAction();
