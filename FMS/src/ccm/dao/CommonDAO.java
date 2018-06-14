@@ -167,6 +167,70 @@ public class CommonDAO
 
 		return list;
 	}
+	
+	public List<Message> selectAllMsgSendFree(String id) {
+		// 이전에 보내진 메시지를 프리랜서의 아이디로 전부 불러오는 메소드
+		String sql = "select * from Message where freeWriter='"+ id + "' order by msgNum desc";
+
+		List<Message> list = new ArrayList<Message>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();
+
+			rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				Message msgVo = new Message();
+
+				msgVo.setParams(rs);
+				
+				list.add(msgVo);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt, rs);
+		}
+
+		return list;
+	}
+	
+	public List<Message> selectAllMsgSendEmp(String id) {
+		// 이전에 보내진 메시지를 사원(관리자)의 아이디로 전부 불러오는 메소드
+		String sql = "select * from Message where empWriter='"+ id + "' order by msgNum desc";
+
+		List<Message> list = new ArrayList<Message>();
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			stmt = conn.createStatement();
+
+			rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				Message msgVo = new Message();
+
+				msgVo.setParams(rs);
+				
+				list.add(msgVo);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt, rs);
+		}
+
+		return list;
+	}
 
 	public Message selectOneMsgByNo(String msgNum) {
 		// 메시지 번호를 통해 메시지의 정보를 가져오는 메소드
